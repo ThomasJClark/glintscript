@@ -1,0 +1,13 @@
+profileVersion = 'v1'
+
+savefile = 'dog.sl2'
+
+[[supports]]
+game = 'eldenring'
+
+[[natives]]
+path = '..\..\target\debug\glintscript.dll'
+
+[[packages]]
+id = 'lowlevel'
+path = 'mod'
