@@ -18,12 +18,11 @@ use crate::script_context::ScriptContext;
 fn start() -> Result<()> {
     let script_context = Box::leak(Box::new(ScriptContext::new()?));
 
-    let scripts = me3_profile::get_scripts_from_packages()
-        .context("Error checking mod packages for scripts. Was the game launched using me3?")?;
-    for script in scripts {
-        if let Err(e) = script_context.load_script(&script) {
-            println!("{}: {:?}", script.display(), e);
-        }
+    let script_dirs = me3_profile::get_script_dirs()
+        .context("Couldn't find any script folders in me3 packages")?;
+
+    for dir in script_dirs {
+        script_context.add_dir(&dir)?;
     }
 
     let cs_task = unsafe { get_instance::<CSTaskImp>() }?.unwrap();
