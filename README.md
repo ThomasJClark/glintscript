@@ -3,7 +3,7 @@
 
 # Glintscript 💎
 
-Glintscript is a Lua-based scripting platform for modding ELDEN RING. It aims to be the environment for custom runtime scripting that's missing from the FromSoftware engine. It's mainly intended to replace the [HKS script extender](https://github.com/ElaDiDu/Scripts-Data-Exposer-FS), and may also be an easier alternative to writing custom DLLs or cheat tables, or a more powerful alternative to the built-in EMEVD event scripting system.
+Glintscript is a WIP experimental Lua scripting platform for modding ELDEN RING. It aims to be the environment for custom runtime scripting that's missing from the FromSoftware engine. It's mainly intended to replace the [HKS script extender](https://github.com/ElaDiDu/Scripts-Data-Exposer-FS), and may also be an easier alternative to writing custom DLLs or cheat tables, or a more powerful alternative to the built-in EMEVD event scripting system.
 
 ## Usage
 
