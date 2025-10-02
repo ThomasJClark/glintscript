@@ -7,9 +7,8 @@ use eldenring::{
     cs::{CSTaskGroupIndex, CSTaskImp},
     fd4::FD4TaskData,
 };
-use eldenring_util::{
-    program::Program, singleton::get_instance, system::wait_for_system_init, task::CSTaskImpExt,
-};
+use eldenring_util::{system::wait_for_system_init, task::CSTaskImpExt};
+use fromsoftware_shared::{Program, get_instance};
 use std::time::Duration;
 use windows::Win32::{Foundation::HANDLE, System::SystemServices::DLL_PROCESS_ATTACH};
 
@@ -25,7 +24,7 @@ fn start() -> Result<()> {
         script_context.add_dir(&dir)?;
     }
 
-    let cs_task = unsafe { get_instance::<CSTaskImp>() }?.unwrap();
+    let cs_task = unsafe { get_instance::<CSTaskImp>() }.unwrap();
     cs_task.run_recurring(
         move |_: &FD4TaskData| script_context.update(),
         CSTaskGroupIndex::FrameBegin,

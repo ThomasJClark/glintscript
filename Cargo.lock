@@ -156,13 +156,12 @@ checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 [[package]]
 name = "eldenring"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8afab69349ee21b41b5e13415c57e513db876178ea24e44cff8b06cbd2e73830"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
 dependencies = [
  "bitfield",
  "cxx-stl",
  "encoding_rs",
- "fromsoftware-dlrf",
+ "from-singleton",
  "fromsoftware-shared",
  "nalgebra",
  "nalgebra-glm",
@@ -179,11 +178,9 @@ dependencies = [
 [[package]]
 name = "eldenring-util"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "28cc7be5ea14cc7a7458b6951676a01d9e1cebb83eb3d75ffae43f2a8009421d"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
 dependencies = [
  "eldenring",
- "fromsoftware-dlrf",
  "fromsoftware-shared",
  "pelite",
  "steamworks",
@@ -239,32 +236,37 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7fd99930f64d146689264c637b5af2f0233a933bef0d8570e2526bf9e083192d"
 
 [[package]]
-name = "fromsoftware-dlrf"
-version = "0.11.0"
+name = "from-singleton"
+version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d35100018cf0d58becaa2ecb66ad2ec94dcd9f7bc2ded9c498f92ba5666db0e"
+checksum = "39817769d3f0ec454107f15c8d65e34b77e183b401c9f76bd46329528c7b82bc"
 dependencies = [
- "fromsoftware-dlrf-derive",
-]
-
-[[package]]
-name = "fromsoftware-dlrf-derive"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c0af39a6c85442cc89bab8a11cf92e166e00873cead0058f7c50d9921dc97fae"
-dependencies = [
- "quote",
- "syn",
+ "pelite",
+ "regex",
+ "windows",
 ]
 
 [[package]]
 name = "fromsoftware-shared"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f97caf4d6faa7155e23bcf6dae99778e11d6e0a54ce6578804b962b83651b416"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
 dependencies = [
+ "from-singleton",
+ "fromsoftware-shared-macros",
  "nalgebra",
  "nalgebra-glm",
+ "pelite",
+ "undname",
+ "windows",
+]
+
+[[package]]
+name = "fromsoftware-shared-macros"
+version = "0.11.0"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
+dependencies = [
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -295,6 +297,8 @@ dependencies = [
  "anyhow",
  "eldenring",
  "eldenring-util",
+ "from-singleton",
+ "fromsoftware-shared",
  "me3-mod-protocol",
  "microseh",
  "mlua",

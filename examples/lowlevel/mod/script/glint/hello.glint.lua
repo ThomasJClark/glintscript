@@ -20,7 +20,7 @@ return function()
     end
 
     -- Use `memory.set_*` to write raw values to the game's memory
-    local new_hp
+    local new_hp = main_player_hp
     if main_player_hp < 1000 then
         new_hp = main_player_hp + 1
     elseif main_player_hp > 1000 then

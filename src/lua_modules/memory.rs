@@ -2,7 +2,7 @@
  * The `glint.memory` module, used for low-level access to the game's memory
  */
 use anyhow::Result;
-use eldenring_util::{program::Program, singleton::build_singleton_table};
+use fromsoftware_shared::Program;
 use microseh::try_seh;
 use mlua::prelude::*;
 use pelite::pe64::PeObject;
@@ -70,7 +70,12 @@ pub(crate) fn create(lua: &Lua) -> Result<mlua::Table> {
 
     memory.set("base", program.image_base())?;
 
-    memory.set("singletons", build_singleton_table(program)?)?;
+    let singletons = lua.create_table()?;
+    for (name, addr) in from_singleton::map() {
+        singletons.set(name.as_str(), addr.as_ptr() as usize)?;
+    }
+
+    memory.set("singletons", singletons)?;
 
     memory.set("get_u8", lua.create_function(lua_getter_function::<u8>)?)?;
     memory.set("get_u16", lua.create_function(lua_getter_function::<u16>)?)?;
