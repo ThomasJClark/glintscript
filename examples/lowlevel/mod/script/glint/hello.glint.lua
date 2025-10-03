@@ -7,6 +7,11 @@ print("Screen size: " .. tostring(screen_width) .. "x" .. tostring(screen_height
 
 -- glint.emevd(2007, 2, { 15 })
 
+local resultConditionGroup = 0 -- MAIN
+local comparisonType = 2       -- Greater
+local targetSoulLevel = 69     -- Nice
+glint.emevd(4, 13, { resultConditionGroup | (comparisonType << 8), targetSoulLevel })
+
 -- Return a function from the script to execute something each frame
 return function()
     -- In most cases, you don't want to hardcode memory offsets from `memory.base`. Instead, use
