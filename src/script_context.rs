@@ -33,6 +33,7 @@ impl ScriptContext {
         // Create global Lua table for the modding API
         let api = lua.create_table()?;
         api.set("memory", lua_modules::memory::create(&lua)?)?;
+        api.set("emevd", lua_modules::emevd::create(&lua)?)?;
         lua.globals().set("glint", api)?;
 
         let (tx, rx) = channel();

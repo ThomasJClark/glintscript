@@ -5,6 +5,8 @@ local screen_width = memory.get_i32(memory.base + 0x3b3fcd8)
 local screen_height = memory.get_i32(memory.base + 0x3b3fcdc)
 print("Screen size: " .. tostring(screen_width) .. "x" .. tostring(screen_height))
 
+-- glint.emevd(2007, 2, { 15 })
+
 -- Return a function from the script to execute something each frame
 return function()
     -- In most cases, you don't want to hardcode memory offsets from `memory.base`. Instead, use
