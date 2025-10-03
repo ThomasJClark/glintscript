@@ -4,11 +4,16 @@ use eldenring::{
     dlkr::DLAllocatorRef,
 };
 use fromsoftware_shared::{OwnedPtr, Program, singleton};
-use pelite::pe64::PeObject;
+use pelite::pe64::Pe;
 use std::{
     mem,
     ptr::{NonNull, null},
 };
+
+type CSEmkEventInsCtor =
+    extern "C" fn(&CSEmkEventIns, &EmkEventId, &[usize; 2], *const u8, u32, BlockId, BlockId);
+type CSEmkEventInsDtor = extern "C" fn(&CSEmkEventIns);
+type EmkInstructionBanksExecute = extern "C" fn(&EmkInstructionBanks, f32, &CSEmkEventIns);
 
 #[repr(C)]
 pub struct EmkEventId {
@@ -28,9 +33,30 @@ impl EmkEventId {
 }
 
 #[repr(C)]
+pub struct CSEmkCondition {
+    vftable: usize,
+    unk8: usize,
+    pub next: Option<OwnedPtr<CSEmkCondition>>,
+    pub result: bool,
+    _pad19: [u8; 0x7],
+    unk20: usize,
+}
+
+#[repr(C)]
+pub struct EventConditionSet {
+    unk0: usize,
+    unk8: usize,
+    unk10: usize,
+    pub head: Option<OwnedPtr<CSEmkCondition>>,
+    pub tail: Option<OwnedPtr<CSEmkCondition>>,
+}
+
+#[repr(C)]
 pub struct CSEventIns {
     vftable: usize,
-    unk8: [u8; 0x98],
+    unk8: [u8; 0x38],
+    pub conditions: EventConditionSet,
+    unk68: [u8; 0x38],
 }
 
 #[repr(C)]
@@ -60,28 +86,31 @@ impl EmkInstruction {
 pub struct CSEmkEventIns {
     pub base: CSEventIns,
     unka0: [u8; 0x30],
-    pub instruction: *const EmkInstruction,
-    pub args: *const i32,
+    pub next_instruction: *const EmkInstruction,
+    pub next_instruction_args: *const u8,
     unke0: [u8; 0x150],
 }
 
 impl CSEmkEventIns {
-    pub fn new(id: &EmkEventId, args_data: Option<&[u8]>, block_id: BlockId) -> Box<Self> {
-        let ctor: extern "C" fn(&Self, &EmkEventId, &[usize; 2], *const u8, u32, BlockId, BlockId) =
-            unsafe { mem::transmute(Program::current().image_base() + 0x582700) };
+    /**
+     * Allocate a new event with the given ID, arguments, and map
+     */
+    pub fn new(id: EmkEventId, args_data: Option<&[u8]>, map_id: Option<BlockId>) -> Box<Self> {
+        let ctor: CSEmkEventInsCtor =
+            unsafe { mem::transmute(Program::current().rva_to_va(0x582700).unwrap()) };
 
         let new = Box::new(unsafe { mem::zeroed() });
 
-        let unk: [usize; 2] = [0; 2];
+        let unk = [0usize; 2];
 
         ctor(
             &new,
-            id,
+            &id,
             &unk,
             args_data.map_or(null(), |data| data.as_ptr()),
             args_data.map_or(0, |data| data.len() as u32),
-            block_id,
-            block_id,
+            map_id.unwrap_or(BlockId::none()),
+            map_id.unwrap_or(BlockId::none()),
         );
 
         new
@@ -89,16 +118,20 @@ impl CSEmkEventIns {
 }
 
 impl Drop for CSEmkEventIns {
+    /**
+     * Call the destructor when an event is dropped. This frees up memory allocated by the game,
+     * and unregisters a task that would cause the event to continue running otherwise
+     */
     fn drop(&mut self) {
-        let dtor: extern "C" fn(&Self) =
-            unsafe { mem::transmute(Program::current().image_base() + 0x5828d0) };
+        let dtor: CSEmkEventInsDtor =
+            unsafe { mem::transmute(Program::current().rva_to_va(0x5828d0).unwrap()) };
 
         dtor(self);
     }
 }
 
 #[repr(C)]
-pub struct EmkClasses {
+pub struct EmkInstructionBanks {
     pub control_flow_system: usize,
     pub control_flow_timer: usize,
     unk10: usize,
@@ -118,6 +151,15 @@ pub struct EmkClasses {
     unk80: usize,
 }
 
+impl EmkInstructionBanks {
+    pub fn execute(&mut self, time: f32, event: &CSEmkEventIns) {
+        let execute: EmkInstructionBanksExecute =
+            unsafe { mem::transmute(Program::current().rva_to_va(0x567e00).unwrap()) };
+
+        execute(self, time, event);
+    }
+}
+
 #[repr(C)]
 #[singleton("CSEmkSystem")]
 pub struct CSEmkSystem {
@@ -126,7 +168,7 @@ pub struct CSEmkSystem {
     unk10: usize,
     unk18: usize,
     unk20: usize,
-    pub instruction_classes: OwnedPtr<EmkClasses>,
+    pub instruction_banks: OwnedPtr<EmkInstructionBanks>,
     unk30: usize,
     unk38: usize,
     unk40: usize,

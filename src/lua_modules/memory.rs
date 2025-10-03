@@ -64,11 +64,9 @@ where
 }
 
 pub(crate) fn create(lua: &Lua) -> Result<mlua::Table> {
-    let program = &Program::current();
-
     let memory = lua.create_table()?;
 
-    memory.set("base", program.image_base())?;
+    memory.set("base", Program::current().image_base())?;
 
     let singletons = lua.create_table()?;
     for (name, addr) in from_singleton::map() {
