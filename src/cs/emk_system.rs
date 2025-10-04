@@ -6,14 +6,14 @@ use eldenring::{
 use fromsoftware_shared::{OwnedPtr, Program, singleton};
 use pelite::pe64::Pe;
 use std::{
-    mem,
+    mem::{self, MaybeUninit, transmute},
     ptr::{NonNull, null},
 };
 
 type CSEmkEventInsCtor =
-    extern "C" fn(&CSEmkEventIns, &EmkEventId, &[usize; 2], *const u8, u32, BlockId, BlockId);
-type CSEmkEventInsDtor = extern "C" fn(&CSEmkEventIns);
-type EmkInstructionBanksExecute = extern "C" fn(&EmkInstructionBanks, f32, &CSEmkEventIns);
+    extern "C" fn(*mut CSEmkEventIns, &EmkEventId, &[usize; 2], *const u8, u32, BlockId, BlockId);
+type CSEmkEventInsDtor = extern "C" fn(*mut CSEmkEventIns);
+type EmkInstructionBanksExecute = extern "C" fn(*mut EmkInstructionBanks, f32, &CSEmkEventIns);
 
 #[repr(C)]
 pub struct EmkEventId {
@@ -70,7 +70,7 @@ pub struct EmkInstruction {
 }
 
 impl EmkInstruction {
-    pub fn new(bank: u32, id: u32) -> Self {
+    pub const fn new(bank: u32, id: u32) -> Self {
         Self {
             bank,
             id,
@@ -95,16 +95,16 @@ impl CSEmkEventIns {
     /**
      * Allocate a new event with the given ID, arguments, and map
      */
-    pub fn new(id: EmkEventId, args_data: Option<&[u8]>, map_id: Option<BlockId>) -> Box<Self> {
+    pub fn new(id: EmkEventId, args_data: Option<&[u8]>, map_id: Option<BlockId>) -> Self {
         let ctor: CSEmkEventInsCtor =
-            unsafe { mem::transmute(Program::current().rva_to_va(0x582700).unwrap()) };
+            unsafe { transmute(Program::current().rva_to_va(0x582700).unwrap()) };
 
-        let new = Box::new(unsafe { mem::zeroed() });
+        let mut new: MaybeUninit<Self> = MaybeUninit::uninit();
 
         let unk = [0usize; 2];
 
         ctor(
-            &new,
+            new.as_mut_ptr(),
             &id,
             &unk,
             args_data.map_or(null(), |data| data.as_ptr()),
@@ -113,7 +113,7 @@ impl CSEmkEventIns {
             map_id.unwrap_or(BlockId::none()),
         );
 
-        new
+        unsafe { new.assume_init() }
     }
 }
 

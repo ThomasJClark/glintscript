@@ -1,4 +1,5 @@
 mod cs;
+mod emevd_utils;
 mod lua_modules;
 mod me3_profile;
 mod script_context;
