@@ -1,6 +1,6 @@
 ---@meta
-
 glint = {}
+glint.memory = {}
 
 ---@type number
 glint.memory.base = 0
@@ -76,8 +76,3 @@ function glint.memory.set_f64() end
 
 ---@type memory_setter
 function glint.memory.set_pointer() end
-
----@param bank number
----@param id number
----@param args number[]
-function glint.emevd(bank, id, args) end

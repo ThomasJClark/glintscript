@@ -129,7 +129,7 @@ impl ScriptContext {
                 });
             }
             Some(script) => {
-                println!("Reloading {:?}", path.file_name());
+                println!("Reloading {}", path.display());
                 script.function = eval(&script.environment)?;
             }
         }

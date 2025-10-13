@@ -6,7 +6,6 @@ const DELTA_TIME: f32 = 1f32 / 30f32;
 
 #[repr(i8)]
 #[allow(unused)]
-#[derive(Debug)]
 pub enum ConditionGroup {
     Or15 = -15,
     Or14 = -14,
@@ -41,16 +40,11 @@ pub enum ConditionGroup {
     And15 = 15,
 }
 
-#[repr(i8)]
+#[repr(u8)]
 #[allow(unused)]
-#[derive(Debug)]
-pub enum ComparisonType {
-    Equal = 0,
-    NotEqual = 1,
-    Greater = 2,
-    Less = 3,
-    GreaterOrEqual = 4,
-    LessOrEqual = 5,
+pub enum DisabledEnabled {
+    Disabled = 0,
+    Enabled = 1,
 }
 
 /**
@@ -77,7 +71,8 @@ pub unsafe fn execute_emevd_instruction(
 }
 
 /**
- * Declares Lua bindings for EMEVD instructions that doesn't return anything
+ * Declares Lua bindings for EMEVD instructions that are explicitly passed arguments and don't
+ * return anything
  */
 #[macro_export]
 macro_rules! lua_emevd_commands {
@@ -100,6 +95,70 @@ macro_rules! lua_emevd_commands {
                         let instruction = $crate::cs::EmkInstruction::new($bank, $id);
                         let args = $struct_name {
                             $($arg_name: $arg_name.unwrap_or_default(),)*
+                        };
+                        unsafe {
+                            let args: *const u8 = std::mem::transmute(&args);
+                            $crate::emevd_utils::execute_emevd_instruction(
+                                instruction,
+                                args
+                            );
+                        }
+                        Ok(())
+                    }
+                )?,
+            )?;)*
+            Ok(())
+        }
+    };
+}
+
+/**
+ * Declares Lua bindings for EMEVD instructions that are prefixed with Enable/Disable and passed an
+ * DisabledEnabled argument implicitly.
+ */
+#[macro_export]
+macro_rules! lua_emevd_enable_disable_commands {
+    (
+        fn $register_name:ident(lua: &$luaType:ty, table: &$luaTableType:ty) -> $luaResultType:ident<()>;
+        $(struct $struct_name:ident($bank:literal, $id:literal) {
+            $($arg_name:ident: $arg_ty:ty),* $(,)?
+        })*
+    ) => {
+        $(#[repr(C)]
+        struct $struct_name {
+            $($arg_name: $arg_ty,)*
+            disabled_enabled: $crate::emevd_utils::DisabledEnabled,
+        })*
+
+        fn $register_name(lua: &$luaType, table: &$luaTableType) -> $luaResultType<()> {
+            $(table.set(
+                concat!("Enable", stringify!($struct_name)),
+                lua.create_function(
+                    |_: &$luaType, ($($arg_name,)*): ( $(Option<$arg_ty>,)* )| -> $luaResultType<()> {
+                        let instruction = $crate::cs::EmkInstruction::new($bank, $id);
+                        let args = $struct_name {
+                            $($arg_name: $arg_name.unwrap_or_default(),)*
+                            disabled_enabled: $crate::emevd_utils::DisabledEnabled::Enabled,
+                        };
+                        unsafe {
+                            let args: *const u8 = std::mem::transmute(&args);
+                            $crate::emevd_utils::execute_emevd_instruction(
+                                instruction,
+                                args
+                            );
+                        }
+                        Ok(())
+                    }
+                )?,
+            )?;
+            table.set(
+                concat!("Disable", stringify!($struct_name)),
+                lua.create_function(
+                    |_: &$luaType, ($($arg_name,)*): ( $(Option<$arg_ty>,)* )| -> $luaResultType<()> {
+                        let instruction = $crate::cs::EmkInstruction::new($bank, $id);
+                        let args = $struct_name {
+                            $($arg_name: $arg_name.unwrap_or_default(),)*
+                            disabled_enabled: $crate::emevd_utils::DisabledEnabled::Disabled,
                         };
                         unsafe {
                             let args: *const u8 = std::mem::transmute(&args);
