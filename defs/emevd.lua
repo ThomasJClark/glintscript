@@ -2,6 +2,421 @@
 glint = {}
 glint.emevd = {}
 
+---@enum OnOff
+glint.emevd.OnOff = {
+    Off = 0,
+    On = 1,
+}
+
+---@enum OnOffChange
+glint.emevd.OnOffChange = {
+    Off = 0,
+    On = 1,
+    Change = 2,
+}
+
+---@enum TargetEventFlagType
+glint.emevd.TargetEventFlagType = {
+    EventFlag = 0,
+    EventId = 1,
+    EventIdSlotNumber = 2,
+}
+
+---@enum ComparisonType
+glint.emevd.ComparisonType = {
+    Equal = 0,
+    Notequal = 1,
+    Greater = 2,
+    Less = 3,
+    Greaterorequal = 4,
+    Lessorequal = 5,
+}
+
+---@enum LogicalOperationType
+glint.emevd.LogicalOperationType = {
+    AllOn = 0,
+    AllOff = 1,
+    NotAllOff = 2,
+    NotAllOn = 3,
+}
+
+---@enum CalculationType
+glint.emevd.CalculationType = {
+    Add = 0,
+    Sub = 1,
+    Mult = 2,
+    Div = 3,
+    Mod = 4,
+    Assign = 5,
+}
+
+---@enum CutscenePlayMode
+glint.emevd.CutscenePlayMode = {
+    Skippable = 0,
+    Unskippable = 2,
+    SkippableWithFadeOutSkip = 16,
+    UnskippableWithFadeOutSkip = 18,
+    SkippableWithWhiteFadeOut = 32,
+    SkippableWithWhiteFadeOutSkip = 48,
+    UnskippableWithWhiteFadeOutSkip = 50,
+    SkippableWithWhiteFadeOut2 = 64,
+}
+
+---@enum DestructionState
+glint.emevd.DestructionState = {
+    Undestroyed = 0,
+    Destroyed = 1,
+}
+
+---@enum InsideOutsideState
+glint.emevd.InsideOutsideState = {
+    Outside = 0,
+    Inside = 1,
+}
+
+---@enum DeathState
+glint.emevd.DeathState = {
+    Alive = 0,
+    Dead = 1,
+}
+
+---@enum OwnershipState
+glint.emevd.OwnershipState = {
+    DoesntOwn = 0,
+    Owns = 1,
+}
+
+---@enum TeamType
+glint.emevd.TeamType = {
+    Disabled = 0,
+    Human = 1,
+    WhitePhantom = 2,
+    BlackPhantom = 3,
+    GrayPhantom = 4,
+    WanderingPhantom = 5,
+    Enemy = 6,
+    StrongEnemy = 7,
+    Ally = 8,
+    HostileAlly = 9,
+    DecoyEnemy = 10,
+    DecoyLike = 11,
+    BattleAlly = 12,
+    Invader = 13,
+    Charmed = 15,
+    Host = 19,
+    CoOp = 20,
+    Hostile = 21,
+    WanderingPhantom2 = 22,
+    Enemy1 = 23,
+    Enemy2 = 24,
+    StrongEnemy2 = 25,
+    FriendlyNPC = 26,
+    HostileNPC = 27,
+    CoOpNPC = 28,
+    Indiscriminate = 29,
+    Object = 30,
+    WhiteBerserker = 31,
+    RedBerserker = 32,
+    ArchEnemyTeam = 33,
+    Unknown67 = 67,
+    Unknown70 = 70,
+    Default = -1,
+}
+
+---@enum TargetEntityType
+glint.emevd.TargetEntityType = {
+    Asset = 0,
+    Area = 1,
+    Character = 2,
+}
+
+---@enum DisabledEnabled
+glint.emevd.DisabledEnabled = {
+    Disabled = 0,
+    Enabled = 1,
+}
+
+---@enum BitopType
+glint.emevd.BitopType = {
+    Add = 0,
+    Delete = 1,
+    Invert = 2,
+}
+
+---@enum NavimeshType
+glint.emevd.NavimeshType = {
+    Solid = 1,
+    Exit = 2,
+    Obstacle = 4,
+    Wall = 8,
+    WallTouchingFloor = 32,
+    LandingPoint = 64,
+    Event = 128,
+    Cliff = 256,
+    OpenSpace = 512,
+    Ladder = 1024,
+    Hole = 2048,
+    Door = 4096,
+    ClosedDoor = 8192,
+}
+
+---@enum PromptType
+glint.emevd.PromptType = {
+    YesNo = 0,
+    OkCancel = 1,
+}
+
+---@enum NumberOfOptions
+glint.emevd.NumberOfOptions = {
+    OneButton = 1,
+    TwoButtons = 2,
+    NoButtons = 6,
+}
+
+---@enum SoundType
+glint.emevd.SoundType = {
+    EnvironmentalSound = 0,
+    CharacterMotion = 1,
+    MenuSE = 2,
+    Asset = 3,
+    CutsceneSE = 4,
+    SFX = 5,
+    BGM = 6,
+    Voice = 7,
+    DependsOnFloorMaterial = 8,
+    DependsOnArmorMaterial = 9,
+    Ghost = 10,
+    GeometrySet = 14,
+}
+
+---@enum DamageTargetType
+glint.emevd.DamageTargetType = {
+    Character = 1,
+    Map = 2,
+    CharacterMap = 3,
+}
+
+---@enum ItemType
+glint.emevd.ItemType = {
+    Weapon = 0,
+    Armor = 1,
+    Ring = 2,
+    Goods = 3,
+}
+
+---@enum TargetType
+glint.emevd.TargetType = {
+    Alive = 0,
+    WhitePhantom = 1,
+    BlackPhantom = 2,
+    GrayPhantom = 8,
+    Invader = 15,
+    Invader2 = 16,
+    BluePhantom = 17,
+    Invader3 = 18,
+}
+
+---@enum TextBannerType
+glint.emevd.TextBannerType = {
+    YouDied = 2,
+    HostVanquished = 5,
+    BloodyFingerVanquished = 7,
+    LostGraceDiscovered = 13,
+    Unknown14 = 14,
+    LegendFelled = 15,
+    DemigodFelled = 16,
+    GreatEnemyFelled = 17,
+    EnemyFelled = 18,
+    DutyFulfilled = 20,
+    MapFound = 22,
+    GreatRuneRestored = 26,
+    GodSlain = 27,
+    DuelistVanquished = 28,
+    RecusantVanquished = 29,
+    InvaderVanquished = 30,
+    Commence = 31,
+    Stalemate = 32,
+    Victory = 33,
+    Defeat = 34,
+}
+
+---@enum MultiplayerState
+glint.emevd.MultiplayerState = {
+    Host = 0,
+    Client = 1,
+    Multiplayer = 2,
+    MultiplayerPending = 3,
+    Singleplayer = 4,
+    Invasion = 5,
+    InvasionPending = 6,
+}
+
+---@enum NPCPartType
+glint.emevd.NPCPartType = {
+    Part1 = 1,
+    Part2 = 2,
+    Part3 = 3,
+    Part4 = 4,
+    Part5 = 5,
+    Part6 = 6,
+    Part7 = 7,
+    Part8 = 8,
+    Part9 = 9,
+    Part10 = 10,
+    Part11 = 11,
+    Part12 = 12,
+    Part13 = 13,
+    Part14 = 14,
+    Part15 = 15,
+    Part16 = 16,
+    Part17 = 17,
+    Part18 = 18,
+    Part19 = 19,
+    Part20 = 20,
+    Part21 = 21,
+    Part22 = 22,
+    Part23 = 23,
+    Part24 = 24,
+    Part25 = 25,
+    Part26 = 26,
+    Part27 = 27,
+    Part28 = 28,
+    Part29 = 29,
+    Part30 = 30,
+    WeakPoint = 31,
+}
+
+---@enum AuthorityLevel
+glint.emevd.AuthorityLevel = {
+    Normal = 0,
+    Forced = 8192,
+}
+
+---@enum AIStateType
+glint.emevd.AIStateType = {
+    Normal = 0,
+    Recognition = 1,
+    Alert = 2,
+    Combat = 3,
+    PassiveAlert = 4,
+    ActiveAlert = 5,
+    WaitBeforeForget = 6,
+}
+
+---@enum SummonSignType
+glint.emevd.SummonSignType = {
+    WhiteSign = 0,
+    BlackSign = 1,
+    RedSign = 2,
+    NPCWhiteSign = 20,
+}
+
+---@enum ClassType
+glint.emevd.ClassType = {
+    Vagabond = 0,
+    Warrior = 1,
+    Hero = 2,
+    Bandit = 3,
+    Astrologer = 4,
+    Prophet = 5,
+    Confessor = 6,
+    Samurai = 7,
+    Prisoner = 8,
+    Wretch = 9,
+}
+
+---@enum CharacterUpdateFrequency
+glint.emevd.CharacterUpdateFrequency = {
+    AlwaysUpdate = 0,
+    Every2Frames = 2,
+    Every5Frames = 5,
+    AtLeastEvery2Frames = 102,
+    AtLeastEvery5Frames = 105,
+    NoUpdate = -1,
+}
+
+---@enum DamageType
+glint.emevd.DamageType = {
+    Unspecified = 0,
+    Fire = 1,
+    Magic = 2,
+}
+
+---@enum ArmorType
+glint.emevd.ArmorType = {
+    Head = 0,
+    Body = 1,
+    Arms = 2,
+    Legs = 3,
+}
+
+---@enum Gender
+glint.emevd.Gender = {
+    Male = 0,
+    Female = 1,
+}
+
+---@enum WorldType
+glint.emevd.WorldType = {
+    OwnWorld = 0,
+    OtherWorld = 1,
+}
+
+---@enum BossBGMState
+glint.emevd.BossBGMState = {
+    Start = 0,
+    HeatUp = 1,
+    HeatUp2 = 2,
+    Stop1 = -2,
+    Stop2 = -1,
+}
+
+---@enum Weather
+glint.emevd.Weather = {
+    Default = 0,
+    Rain = 1,
+    Snow = 2,
+    WindyRain = 3,
+    Fog = 4,
+    Cloudless = 5,
+    FlatClouds = 6,
+    PuffyClouds = 7,
+    RainyClouds = 8,
+    WindyFog = 9,
+    HeavySnow = 10,
+    HeavyFog = 11,
+    WindyPuffyClouds = 12,
+    Default2 = 13,
+    Default3 = 14,
+    RainyHeavyFog = 15,
+    SnowyHeavyFog = 16,
+    ScatteredRain = 17,
+    Unknown18 = 18,
+    Unknown19 = 19,
+    Unknown20 = 20,
+    Unknown21 = 21,
+    Unknown22 = 22,
+    Unknown23 = 23,
+    None = -1,
+}
+
+---@enum ArenaMatchType
+glint.emevd.ArenaMatchType = {
+    Duel = 0,
+    TwoPlayerBrawl = 1,
+    FourPlayerBrawl = 2,
+    SixPlayerBrawl = 3,
+    OneVersusOne = 4,
+    TwoVersusTwo = 5,
+    ThreeVersusThree = 6,
+}
+
+---@enum ArenaResult
+glint.emevd.ArenaResult = {
+    Win = 0,
+    Draw = 1,
+}
+
 -- System
 
 ---@param dummy number
@@ -34,19 +449,19 @@ function glint.emevd.FreezeTime(should_freeze) end
 -- Cutscene
 
 ---@param cutscene_id number
----@param playback_method number
+---@param playback_method CutscenePlayMode
 function glint.emevd.PlayCutsceneToAll(cutscene_id, playback_method) end
 
 ---@param cutscene_id number
----@param playback_method number
+---@param playback_method CutscenePlayMode
 ---@param player_entity_id number
 function glint.emevd.PlayCutsceneToPlayer(cutscene_id, playback_method, player_entity_id) end
 
 ---@param cutscene_id number
----@param playback_method number
+---@param playback_method CutscenePlayMode
 ---@param player_entity_id number
 ---@param should_change_weather boolean
----@param weather number
+---@param weather Weather
 ---@param weather_lifespan_seconds number
 ---@param should_change_time boolean
 ---@param hours number
@@ -58,7 +473,7 @@ function glint.emevd.PlayCutsceneToPlayerWithWeatherAndTime(cutscene_id, playbac
 end
 
 ---@param cutscene_id number
----@param playback_method number
+---@param playback_method CutscenePlayMode
 ---@param area_entity_id number
 ---@param map_id number
 ---@param player_entity_id number
@@ -69,14 +484,14 @@ function glint.emevd.PlayCutsceneToPlayerAndWarp(cutscene_id, playback_method, a
 end
 
 ---@param cutscene_id number
----@param playback_method number
+---@param playback_method CutscenePlayMode
 ---@param area_entity_id number
 ---@param map_id number
 ---@param player_entity_id number
 ---@param unknown14 number
 ---@param unknown18 boolean
 ---@param should_change_weather boolean
----@param weather number
+---@param weather Weather
 ---@param weather_lifespan_seconds number
 ---@param should_change_time boolean
 ---@param hours number
@@ -90,7 +505,7 @@ function glint.emevd.PlayCutsceneToPlayerAndWarpWithWeatherAndTime(cutscene_id, 
 end
 
 ---@param cutscene_id number
----@param playback_method number
+---@param playback_method CutscenePlayMode
 ---@param area_entity_id number
 ---@param map_id number
 ---@param player_entity_id number
@@ -121,19 +536,19 @@ end
 ---@param event_flag_id number
 function glint.emevd.InvertEventFlag(event_flag_id) end
 
----@param disabled_enabled number
+---@param disabled_enabled DisabledEnabled
 ---@param entity_id number
 ---@param slot_number number
 ---@param name_id number
 function glint.emevd.DisplayBossHealthBar(disabled_enabled, entity_id, slot_number, name_id) end
 
 ---@param entity_id number
----@param banner_type number
+---@param banner_type TextBannerType
 function glint.emevd.HandleBossDefeatAndDisplayBanner(entity_id, banner_type) end
 
 ---@param navimesh_entity_id number
----@param navimesh_type number
----@param type_bit_operation number
+---@param navimesh_type NavimeshType
+---@param type_bit_operation BitopType
 function glint.emevd.ModifyNavimeshConnectionBitflag(navimesh_entity_id, navimesh_type, type_bit_operation) end
 
 ---@param area_id number
@@ -154,7 +569,7 @@ function glint.emevd.TriggerMultiplayerEvent(multiplayer_event_id) end
 
 ---@param event_flag_id_min number
 ---@param event_flag_id_max number
----@param flag_state number
+---@param flag_state OnOff
 function glint.emevd.RandomlySetEventFlagInRange(event_flag_id_min, event_flag_id_max, flag_state) end
 
 ---@param entity_id number
@@ -162,7 +577,7 @@ function glint.emevd.RandomlySetEventFlagInRange(event_flag_id_min, event_flag_i
 ---@param should_loop boolean
 ---@param should_wait_for_completion boolean
 ---@param ignore_wait_for_transition boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 function glint.emevd.ForceAnimationPlayback(entity_id, animation_id, should_loop, should_wait_for_completion,
                                             ignore_wait_for_transition, comparison_type, number_of_target_characters)
@@ -173,18 +588,18 @@ function glint.emevd.IncrementGameCycle(dummy) end
 
 ---@param event_flag_id_start number
 ---@param event_flag_id_end number
----@param flag_state number
+---@param flag_state OnOff
 function glint.emevd.BatchSetEventFlags(event_flag_id_start, event_flag_id_end, flag_state) end
 
 ---@param respawn_area_entity_id number
 function glint.emevd.SetPlayerRespawnPoint(respawn_area_entity_id) end
 
----@param item_type number
+---@param item_type ItemType
 ---@param item_id number
 ---@param number number
 function glint.emevd.RemoveItemFromPlayer(item_type, item_id, number) end
 
----@param sign_type number
+---@param sign_type SummonSignType
 ---@param summoned_npc_entity_id number
 ---@param spawn_area_entity_id number
 ---@param summon_event_flag_id number
@@ -227,19 +642,19 @@ function glint.emevd.AwardItemsIncludingClients(item_lot_id) end
 ---@param operand number
 ---@param base_event_flag_id_operand number
 ---@param number_of_used_event_flag_bits_operand number
----@param calculation_type number
+---@param calculation_type CalculationType
 function glint.emevd.EventValueOperation(base_event_flag_id, number_of_used_flag_bits, operand,
                                          base_event_flag_id_operand, number_of_used_event_flag_bits_operand,
                                          calculation_type)
 end
 
----@param item_type number
+---@param item_type ItemType
 ---@param item_id number
 ---@param base_event_flag_id number
 ---@param number_of_used_flag_bits number
 function glint.emevd.StoreItemAmountHeldInEventValue(item_type, item_id, base_event_flag_id, number_of_used_flag_bits) end
 
----@param item_type number
+---@param item_type ItemType
 ---@param item_id number
 ---@param base_event_flag_id number
 ---@param number_of_used_flag_bits number
@@ -247,7 +662,7 @@ function glint.emevd.DirectlyGivePlayerItem(item_type, item_id, base_event_flag_
 
 ---@param ai_sound_param_id number
 ---@param entity_id number
----@param origin_entity_type number
+---@param origin_entity_type TargetEntityType
 function glint.emevd.TriggerAISound(ai_sound_param_id, entity_id, origin_entity_type) end
 
 ---@param generator_entity_id number
@@ -255,7 +670,7 @@ function glint.emevd.InvokeEnemyGenerator(generator_entity_id) end
 
 ---@param event_flag_id_start number
 ---@param event_flag_id_end number
----@param flag_state number
+---@param flag_state OnOff
 function glint.emevd.BatchSetNetworkConnectedEventFlags(event_flag_id_start, event_flag_id_end, flag_state) end
 
 ---@param level_1_count number
@@ -264,19 +679,19 @@ function glint.emevd.SetOmissionModeCounts(level_1_count, level_2_count) end
 
 function glint.emevd.ResetOmissionModeCountsToDefault() end
 
----@param target_event_flag_type number
+---@param target_event_flag_type TargetEventFlagType
 ---@param target_event_flag_id number
----@param desired_flag_state number
+---@param desired_flag_state OnOff
 function glint.emevd.SetEventFlag(target_event_flag_type, target_event_flag_id, desired_flag_state) end
 
----@param weather number
+---@param weather Weather
 ---@param lifespan_seconds number
 ---@param should_switch_immediately boolean
 function glint.emevd.ChangeWeather(weather, lifespan_seconds, should_switch_immediately) end
 
----@param target_event_flag_type number
+---@param target_event_flag_type TargetEventFlagType
 ---@param target_event_flag_id number
----@param desired_flag_state number
+---@param desired_flag_state OnOff
 function glint.emevd.SetNetworkConnectedEventFlag(target_event_flag_type, target_event_flag_id, desired_flag_state) end
 
 ---@param ignore_is_my_world_check boolean
@@ -302,7 +717,7 @@ function glint.emevd.IssueEndOfPseudoMultiplayerNotification(success) end
 ---@param dummypoly_id number
 function glint.emevd.UseFarViewCamera(far_view_id, asset_entity_id, dummypoly_id) end
 
----@param state number
+---@param state DisabledEnabled
 ---@param aboveground boolean
 ---@param area_id number
 ---@param block_id number
@@ -332,7 +747,7 @@ function glint.emevd.DeleteNPCSummonSign(npc_entity_id) end
 -- Character
 
 ---@param entity_id number
----@param team_type number
+---@param team_type TeamType
 function glint.emevd.SetCharacterTeamType(entity_id, team_type) end
 
 ---@param entity_id number
@@ -391,7 +806,7 @@ function glint.emevd.ClearSpEffect(entity_id, sp_effect_id) end
 
 ---@param entity_id number
 ---@param npc_part_id number
----@param npc_part_group_idx number
+---@param npc_part_group_idx NPCPartType
 ---@param npc_part_hp number
 ---@param damage_correction number
 ---@param body_damage_compensation number
@@ -425,16 +840,16 @@ function glint.emevd.SetNPCPartBulletDamageMultiplier(entity_id, npc_part_id, bu
 
 ---@param entity_id number
 ---@param bit_number number
----@param switch_type number
+---@param switch_type OnOffChange
 function glint.emevd.ChangeCharacterDispmask(entity_id, bit_number, switch_type) end
 
 ---@param character_entity_id number
 ---@param bit_number number
----@param switch_type number
+---@param switch_type OnOffChange
 function glint.emevd.ChangeCharacterHitmask(character_entity_id, bit_number, switch_type) end
 
 ---@param entity_id number
----@param authority_level number
+---@param authority_level AuthorityLevel
 function glint.emevd.SetNetworkUpdateAuthority(entity_id, authority_level) end
 
 ---@param entity_id number
@@ -451,7 +866,7 @@ function glint.emevd.CreateReferredDamagePair(source_entity_id, target_entity_id
 
 ---@param entity_id number
 ---@param use_fixed_frequency boolean
----@param update_frequency number
+---@param update_frequency CharacterUpdateFrequency
 function glint.emevd.SetNetworkUpdateRate(entity_id, use_fixed_frequency, update_frequency) end
 
 ---@param character_entity_id number
@@ -461,7 +876,7 @@ function glint.emevd.ForceCharacterTreasure(character_entity_id) end
 function glint.emevd.BetrayCharactersCurrentCovenant(dummy) end
 
 ---@param entity_id number
----@param warp_entity_type number
+---@param warp_entity_type TargetEntityType
 ---@param warp_destination_entity_id number
 ---@param dummypoly_id number
 ---@param warp_destination_hit_entity_id number
@@ -470,13 +885,13 @@ function glint.emevd.WarpCharacterAndSetFloor(entity_id, warp_entity_type, warp_
 end
 
 ---@param entity_id number
----@param warp_entity_type number
+---@param warp_entity_type TargetEntityType
 ---@param warp_destination_entity_id number
 ---@param dummypoly_id number
 function glint.emevd.IssueShortWarpRequest(entity_id, warp_entity_type, warp_destination_entity_id, dummypoly_id) end
 
 ---@param entity_id number
----@param warp_entity_type number
+---@param warp_entity_type TargetEntityType
 ---@param warp_destination_entity_id number
 ---@param dummypoly_id number
 ---@param entity_id_to_copy_floor_from number
@@ -485,7 +900,7 @@ function glint.emevd.WarpCharacterAndCopyFloor(entity_id, warp_entity_type, warp
 end
 
 ---@param character_entity_id number
----@param state number
+---@param state DisabledEnabled
 function glint.emevd.RequestCharacterAnimationReset(character_entity_id, state) end
 
 function glint.emevd.BonfireLikeRecovery() end
@@ -524,7 +939,7 @@ function glint.emevd.CopyPlayerCharacterData(source_character_entity_id, target_
 function glint.emevd.AttachAssetToCharacter(character_entity_id, dummypoly_id, asset_entity_id) end
 
 ---@param entity_id number
----@param warp_entity_type number
+---@param warp_entity_type TargetEntityType
 ---@param warp_destination_entity_id number
 ---@param dummypoly_id number
 ---@param entity_id_to_copy_floor_from number
@@ -562,7 +977,7 @@ function glint.emevd.SendCharacterDataToOnlinePlayers(pool_type) end
 function glint.emevd.ResetCharacterPosition(character_entity_id) end
 
 ---@param character_entity_id number
----@param flag_state number
+---@param flag_state OnOff
 function glint.emevd.SetSpecialStandbyEndedFlag(character_entity_id, flag_state) end
 
 ---@param opacity number
@@ -600,7 +1015,7 @@ function glint.emevd.ReproduceAssetDestruction(entity_id, slot_number) end
 ---@param entity_id number
 ---@param dummypoly_id number
 ---@param behavior_id number
----@param target number
+---@param target DamageTargetType
 ---@param radius number
 ---@param lifespan number
 ---@param repetition_time_s number
@@ -633,7 +1048,7 @@ function glint.emevd.AttachAssetToAsset(child_asset_entity_id, parent_asset_enti
 ---@param starting_dummypoly_id number
 ---@param ending_dummypoly_id number
 ---@param behavior_id number
----@param target number
+---@param target DamageTargetType
 ---@param radius number
 ---@param lifespan number
 ---@param repetition_time_s number
@@ -650,7 +1065,7 @@ function glint.emevd.DeleteMapSFX(entity_id, only_delete_root) end
 ---@param entity_id number
 function glint.emevd.SpawnMapSFX(entity_id) end
 
----@param target_entity_type number
+---@param target_entity_type TargetEntityType
 ---@param entity_id number
 ---@param dummypoly_id number
 ---@param sfx_id number
@@ -671,17 +1086,17 @@ function glint.emevd.SetWindSFX(wind_sfx_id) end
 -- Message
 
 ---@param message_id number
----@param dialog_type number
----@param number_of_options number
+---@param dialog_type PromptType
+---@param number_of_options NumberOfOptions
 ---@param entity_id number
 ---@param display_distance number
 function glint.emevd.DisplayGenericDialog(message_id, dialog_type, number_of_options, entity_id, display_distance) end
 
----@param banner_type number
+---@param banner_type TextBannerType
 function glint.emevd.DisplayBanner(banner_type) end
 
 ---@param message_id number
----@param pad_state number
+---@param pad_state DisabledEnabled
 function glint.emevd.DisplayStatusMessage(message_id, pad_state) end
 
 ---@param message_id number
@@ -691,8 +1106,8 @@ function glint.emevd.DisplayBlinkingMessage(message_id) end
 function glint.emevd.DisplayFullScreenMessage(message_id) end
 
 ---@param message_id number
----@param dialog_type number
----@param number_of_options number
+---@param dialog_type PromptType
+---@param number_of_options NumberOfOptions
 ---@param entity_id number
 ---@param display_distance number
 ---@param left_response_event_flag_id number
@@ -730,7 +1145,7 @@ function glint.emevd.DisplayNetworkMessage(network_message_id, unknown) end
 function glint.emevd.ChangeCamera(normal_camera_id, locked_camera_id) end
 
 ---@param vibration_id number
----@param target_entity_type number
+---@param target_entity_type TargetEntityType
 ---@param entity_id number
 ---@param dummypoly_id number
 ---@param decay_start_distance number
@@ -783,17 +1198,17 @@ function glint.emevd.SendAllPhantomsHomeAndUpdateServerPvpStats(unknown) end
 -- Sound
 
 ---@param entity_id number
----@param sound_type number
+---@param sound_type SoundType
 ---@param sound_id number
 function glint.emevd.PlaySE(entity_id, sound_type, sound_id) end
 
----@param sound_type number
+---@param sound_type SoundType
 ---@param unknown number
 ---@param is_suppression_active boolean
 function glint.emevd.SuppressSE(sound_type, unknown, is_suppression_active) end
 
 ---@param bgm_boss_conv_param_id number
----@param state number
+---@param state BossBGMState
 function glint.emevd.SetBossBGM(bgm_boss_conv_param_id, state) end
 
 ---@param time_s number
@@ -1019,14 +1434,14 @@ end
 
 -- Condition - Event
 
----@param desired_flag_state number
----@param target_event_flag_type number
+---@param desired_flag_state OnOffChange
+---@param target_event_flag_type TargetEventFlagType
 ---@param target_event_flag_id number
 ---@return boolean
 function glint.emevd.EventFlag(desired_flag_state, target_event_flag_type, target_event_flag_id) end
 
----@param desired_flag_state number
----@param target_event_flag_type number
+---@param desired_flag_state LogicalOperationType
+---@param target_event_flag_type TargetEventFlagType
 ---@param starting_target_event_flag_id number
 ---@param ending_target_event_flag_id number
 ---@return boolean
@@ -1034,14 +1449,14 @@ function glint.emevd.BatchEventFlags(desired_flag_state, target_event_flag_type,
                                      ending_target_event_flag_id)
 end
 
----@param desired_state number
+---@param desired_state InsideOutsideState
 ---@param target_entity_id number
 ---@param area_entity_id number
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.InOutsideArea(desired_state, target_entity_id, area_entity_id, number_of_target_characters) end
 
----@param desired_state number
+---@param desired_state InsideOutsideState
 ---@param target_entity_id_a number
 ---@param target_entity_id_b number
 ---@param target_distance number
@@ -1051,17 +1466,17 @@ function glint.emevd.EntityInOutsideRadiusOfEntity(desired_state, target_entity_
                                                    number_of_target_characters)
 end
 
----@param item_type number
+---@param item_type ItemType
 ---@param item_id number
----@param desired_possession_state number
+---@param desired_possession_state OwnershipState
 ---@return boolean
 function glint.emevd.PlayerHasDoesntHaveItem(item_type, item_id, desired_possession_state) end
 
----@param desired_multiplayer_state number
+---@param desired_multiplayer_state MultiplayerState
 ---@return boolean
 function glint.emevd.MultiplayerState(desired_multiplayer_state) end
 
----@param desired_state number
+---@param desired_state InsideOutsideState
 ---@param area_entity_id number
 ---@return boolean
 function glint.emevd.AllPlayersInOutsideArea(desired_state, area_entity_id) end
@@ -1078,10 +1493,10 @@ function glint.emevd.PlayerInOutMap(should_player_be_inside, area_id, block_id, 
 ---@return boolean
 function glint.emevd.MultiplayerEvent(multiplayer_event_id) end
 
----@param target_event_flag_type number
+---@param target_event_flag_type TargetEventFlagType
 ---@param starting_target_event_flag_id number
 ---@param ending_target_event_flag_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param count_threshold number
 ---@return boolean
 function glint.emevd.CountEventFlags(target_event_flag_type, starting_target_event_flag_id, ending_target_event_flag_id,
@@ -1090,7 +1505,7 @@ end
 
 ---@param base_event_flag_id number
 ---@param number_of_used_flag_bits number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param threshold_value number
 ---@return boolean
 function glint.emevd.EventValue(base_event_flag_id, number_of_used_flag_bits, comparison_type, threshold_value) end
@@ -1099,25 +1514,25 @@ function glint.emevd.EventValue(base_event_flag_id, number_of_used_flag_bits, co
 ---@return boolean
 function glint.emevd.DroppedItemsInArea(area_entity_id) end
 
----@param item_type number
+---@param item_type ItemType
 ---@param item_id number
 ---@return boolean
 function glint.emevd.DroppedItem(item_type, item_id) end
 
----@param item_type number
+---@param item_type ItemType
 ---@param item_id number
----@param desired_possession_state number
+---@param desired_possession_state OwnershipState
 ---@return boolean
 function glint.emevd.PlayerHasDoesntHaveItemIncludingBbox(item_type, item_id, desired_possession_state) end
 
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param completed_game_cycles_threshold number
 ---@return boolean
 function glint.emevd.GameCycle(comparison_type, completed_game_cycles_threshold) end
 
 ---@param left_side_base_event_flag_id number
 ---@param left_side_number_of_used_flag_bits number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param right_side_base_event_flag_id number
 ---@param right_side_number_of_used_flag_bits number
 ---@return boolean
@@ -1131,7 +1546,7 @@ function glint.emevd.OnlineMode(online_mode) end
 
 ---@param target_entity_id number
 ---@param attacker_entity_id number
----@param damage_type number
+---@param damage_type DamageType
 ---@return boolean
 function glint.emevd.DamageType(target_entity_id, attacker_entity_id, damage_type) end
 
@@ -1140,7 +1555,7 @@ function glint.emevd.DamageType(target_entity_id, attacker_entity_id, damage_typ
 ---@return boolean
 function glint.emevd.ActionButtonInArea(action_button_parameter_id, target_entity_id) end
 
----@param world_type number
+---@param world_type WorldType
 ---@return boolean
 function glint.emevd.PlayerIsInWorldType(world_type) end
 
@@ -1151,7 +1566,7 @@ function glint.emevd.PlayerIsInWorldType(world_type) end
 ---@return boolean
 function glint.emevd.MapLoaded(area_id, block_id, region_id, index_id) end
 
----@param weather number
+---@param weather Weather
 ---@param start_delay_during_change_s number
 ---@param end_delay_during_change_s number
 ---@return boolean
@@ -1171,7 +1586,7 @@ function glint.emevd.MapHasPermissionToUpdate(has_permission, unknown, area_id, 
 ---@return boolean
 function glint.emevd.FieldBattleBGMActive(npc_threat_level, is_active) end
 
----@param armor_type number
+---@param armor_type ArmorType
 ---@param armor_item_id number
 ---@param unknown number
 ---@return boolean
@@ -1187,7 +1602,7 @@ function glint.emevd.CeremonyActive(is_active, ceremony_id) end
 ---@return boolean
 function glint.emevd.WeatherLotActive(weather_lot_param_id, is_active) end
 
----@param gender number
+---@param gender Gender
 ---@return boolean
 function glint.emevd.PlayerGender(gender) end
 
@@ -1195,25 +1610,25 @@ function glint.emevd.PlayerGender(gender) end
 ---@return boolean
 function glint.emevd.ArenaMatchReadyState(ready) end
 
----@param result number
+---@param result ArenaResult
 ---@return boolean
 function glint.emevd.ArenaSoloResults(result) end
 
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_score number
 ---@return boolean
 function glint.emevd.ArenaSoloScoreComparison(comparison_type, target_score) end
 
----@param result number
+---@param result ArenaResult
 ---@return boolean
 function glint.emevd.ArenaTeamResults(result) end
 
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_score number
 ---@return boolean
 function glint.emevd.ArenaTeamScoreComparison(comparison_type, target_score) end
 
----@param match_type number
+---@param match_type ArenaMatchType
 ---@param has_spirit_summon boolean
 ---@return boolean
 function glint.emevd.ArenaMatchType(match_type, has_spirit_summon) end
@@ -1228,8 +1643,8 @@ function glint.emevd.TutorialSeen(tutorial_param_id) end
 -- Condition - Character
 
 ---@param target_entity_id number
----@param desired_life_state number
----@param comparison_type number
+---@param desired_life_state DeathState
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterDeadAlive(target_entity_id, desired_life_state, comparison_type,
@@ -1237,9 +1652,9 @@ function glint.emevd.CharacterDeadAlive(target_entity_id, desired_life_state, co
 end
 
 ---@param target_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_hp_ratio number
----@param comparison_type2 number
+---@param comparison_type2 ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterHPRatio(target_entity_id, comparison_type, target_hp_ratio, comparison_type2,
@@ -1247,8 +1662,8 @@ function glint.emevd.CharacterHPRatio(target_entity_id, comparison_type, target_
 end
 
 ---@param target_entity_id number
----@param target_type number
----@param comparison_type number
+---@param target_type TargetType
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterType(target_entity_id, target_type, comparison_type, number_of_target_characters) end
@@ -1256,7 +1671,7 @@ function glint.emevd.CharacterType(target_entity_id, target_type, comparison_typ
 ---@param aggressor_entity_id number
 ---@param target_entity_id number
 ---@param should_have boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterTargetedBy(aggressor_entity_id, target_entity_id, should_have, comparison_type,
@@ -1266,7 +1681,7 @@ end
 ---@param target_entity_id number
 ---@param sp_effect_id number
 ---@param should_have boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterHasSpEffect(target_entity_id, sp_effect_id, should_have, comparison_type,
@@ -1276,13 +1691,13 @@ end
 ---@param target_entity_id number
 ---@param npc_part_id number
 ---@param hp_threshold number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@return boolean
 function glint.emevd.NPCPartHP(target_entity_id, npc_part_id, hp_threshold, comparison_type) end
 
 ---@param target_entity_id number
 ---@param is_backread boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterBackreadStatus(target_entity_id, is_backread, comparison_type, number_of_target_characters) end
@@ -1290,7 +1705,7 @@ function glint.emevd.CharacterBackreadStatus(target_entity_id, is_backread, comp
 ---@param target_entity_id number
 ---@param target_event_message_id number
 ---@param should_have boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterHasEventMessage(target_entity_id, target_event_message_id, should_have, comparison_type,
@@ -1298,13 +1713,13 @@ function glint.emevd.CharacterHasEventMessage(target_entity_id, target_event_mes
 end
 
 ---@param target_entity_id number
----@param ai_state number
----@param comparison_type number
+---@param ai_state AIStateType
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterAIState(target_entity_id, ai_state, comparison_type, number_of_target_characters) end
 
----@param class_type number
+---@param class_type ClassType
 ---@return boolean
 function glint.emevd.PlayersClass(class_type) end
 
@@ -1312,15 +1727,15 @@ function glint.emevd.PlayersClass(class_type) end
 ---@return boolean
 function glint.emevd.PlayersCovenant(covenant_index) end
 
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_soul_level number
 ---@return boolean
 function glint.emevd.PlayersSoulLevel(comparison_type, target_soul_level) end
 
 ---@param target_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_hp number
----@param comparison_type2 number
+---@param comparison_type2 ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterHPValue(target_entity_id, comparison_type, target_hp, comparison_type2,
@@ -1328,16 +1743,16 @@ function glint.emevd.CharacterHPValue(target_entity_id, comparison_type, target_
 end
 
 ---@param target_entity_id number
----@param desired_life_state number
----@param comparison_type number
+---@param desired_life_state DeathState
+---@param comparison_type ComparisonType
 ---@param target_ratio number
 ---@return boolean
 function glint.emevd.CharacterRatioDeadAlive(target_entity_id, desired_life_state, comparison_type, target_ratio) end
 
 ---@param target_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_amount number
----@param comparison_type2 number
+---@param comparison_type2 ComparisonType
 ---@param target_ratio number
 ---@return boolean
 function glint.emevd.CharacterRatioHPRatio(target_entity_id, comparison_type, target_amount, comparison_type2,
@@ -1347,34 +1762,34 @@ end
 ---@param target_entity_id number
 ---@param sp_effect_id number
 ---@param should_have boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_ratio number
 ---@return boolean
 function glint.emevd.CharacterRatioHasSpEffect(target_entity_id, sp_effect_id, should_have, comparison_type, target_ratio) end
 
 ---@param target_entity_id number
----@param ai_state number
----@param comparison_type number
+---@param ai_state AIStateType
+---@param comparison_type ComparisonType
 ---@param target_ratio number
 ---@return boolean
 function glint.emevd.CharacterRatioAIState(target_entity_id, ai_state, comparison_type, target_ratio) end
 
 ---@param min_npc_threat_level number
 ---@param max_npc_threat_level number
----@param ai_state_type number
+---@param ai_state_type AIStateType
 ---@return boolean
 function glint.emevd.PlayerTargeted(min_npc_threat_level, max_npc_threat_level, ai_state_type) end
 
 ---@param target_entity_id number
 ---@param npc_part_id number
 ---@param attacker_entity_id number
----@param damage_type number
+---@param damage_type DamageType
 ---@return boolean
 function glint.emevd.NPCPartAttributeDamage(target_entity_id, npc_part_id, attacker_entity_id, damage_type) end
 
 ---@param target_entity_id number
 ---@param invade_type_unknown number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterInvadeType(target_entity_id, invade_type_unknown, comparison_type,
@@ -1389,7 +1804,7 @@ function glint.emevd.CharacterRidingMount(target_entity_id, is_mounted) end
 ---@param target_entity_id number
 ---@param state_info number
 ---@param should_have boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_characters number
 ---@return boolean
 function glint.emevd.CharacterHasStateInfo(target_entity_id, state_info, should_have, comparison_type,
@@ -1397,15 +1812,15 @@ function glint.emevd.CharacterHasStateInfo(target_entity_id, state_info, should_
 end
 
 ---@param target_entity_id number
----@param desired_flag_state number
+---@param desired_flag_state OnOffChange
 ---@return boolean
 function glint.emevd.SpecialStandbyEndedFlag(target_entity_id, desired_flag_state) end
 
 -- Condition - Asset
 
----@param damage_state number
+---@param damage_state DestructionState
 ---@param target_asset_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_assets number
 ---@return boolean
 function glint.emevd.AssetDestroyed(damage_state, target_asset_entity_id, comparison_type, number_of_target_assets) end
@@ -1420,24 +1835,24 @@ function glint.emevd.AssetHitBy(target_entity_id, attacker_entity_id) end
 function glint.emevd.ObjActEventFlag(obj_act_event_flag) end
 
 ---@param target_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param hp_threshold number
----@param comparison_type2 number
+---@param comparison_type2 ComparisonType
 ---@param number_of_target_assets number
 ---@return boolean
 function glint.emevd.AssetHP(target_entity_id, comparison_type, hp_threshold, comparison_type2, number_of_target_assets) end
 
----@param damage_state number
+---@param damage_state DestructionState
 ---@param target_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_ratio number
 ---@return boolean
 function glint.emevd.AssetRatioDestroyed(damage_state, target_entity_id, comparison_type, target_ratio) end
 
 ---@param target_entity_id number
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param burn_state_unknown number
----@param comparison_type2 number
+---@param comparison_type2 ComparisonType
 ---@param number_of_target_assets number
 ---@return boolean
 function glint.emevd.AssetBurnState(target_entity_id, comparison_type, burn_state_unknown, comparison_type2,
@@ -1446,14 +1861,14 @@ end
 
 ---@param target_entity_id number
 ---@param is_backread boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param number_of_target_assets number
 ---@return boolean
 function glint.emevd.AssetBackread(target_entity_id, is_backread, comparison_type, number_of_target_assets) end
 
 ---@param target_entity_id number
 ---@param is_backread boolean
----@param comparison_type number
+---@param comparison_type ComparisonType
 ---@param target_ratio number
 ---@return boolean
 function glint.emevd.AssetRatioBackread(target_entity_id, is_backread, comparison_type, target_ratio) end

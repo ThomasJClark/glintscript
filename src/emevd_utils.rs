@@ -71,6 +71,29 @@ pub unsafe fn execute_emevd_instruction(
 }
 
 /**
+ * Declares enums used by EMEVD Lua bindings, which result in tables being registered in the
+ * `glint.emevd` namesapce. These aren't represented by Rust enums because they're not used from
+ * Rust, and there are some default values in the Elden Ring EMEDF that aren't valid enum members.
+ */
+#[macro_export]
+macro_rules! lua_emevd_enums {
+    (
+        fn $register_name:ident(lua: &$luaType:ty, table: &$luaTableType:ty) -> $luaResultType:ident<()>;
+        $(enum $enum_name:ident {
+            $($member_name:ident = $member_value:expr),* $(,)?
+        })*
+    ) => {
+        fn $register_name(lua: &$luaType, table: &$luaTableType) -> $luaResultType<()> {
+            $(table.set(
+                stringify!($enum_name),
+                lua.create_table_from([$((stringify!($member_name), $member_value),)*])?,
+            )?;)*
+            Ok(())
+        }
+    };
+}
+
+/**
  * Declares Lua bindings for EMEVD instructions that are explicitly passed arguments and don't
  * return anything
  */
@@ -79,7 +102,7 @@ macro_rules! lua_emevd_commands {
     (
         fn $register_name:ident(lua: &$luaType:ty, table: &$luaTableType:ty) -> $luaResultType:ident<()>;
         $(struct $struct_name:ident($bank:literal, $id:literal) {
-            $($arg_name:ident: $arg_ty:ty),* $(,)?
+            $($arg_name:ident: $arg_ty:ty = $arg_default:expr),* $(,)?
         })*
     ) => {
         $(#[repr(C)]
@@ -94,7 +117,7 @@ macro_rules! lua_emevd_commands {
                     |_: &$luaType, ($($arg_name,)*): ( $(Option<$arg_ty>,)* )| -> $luaResultType<()> {
                         let instruction = $crate::cs::EmkInstruction::new($bank, $id);
                         let args = $struct_name {
-                            $($arg_name: $arg_name.unwrap_or_default(),)*
+                            $($arg_name: $arg_name.unwrap_or($arg_default),)*
                         };
                         unsafe {
                             let args: *const u8 = std::mem::transmute(&args);
@@ -121,7 +144,7 @@ macro_rules! lua_emevd_enable_disable_commands {
     (
         fn $register_name:ident(lua: &$luaType:ty, table: &$luaTableType:ty) -> $luaResultType:ident<()>;
         $(struct $struct_name:ident($bank:literal, $id:literal) {
-            $($arg_name:ident: $arg_ty:ty),* $(,)?
+            $($arg_name:ident: $arg_ty:ty = $arg_default:expr),* $(,)?
         })*
     ) => {
         $(#[repr(C)]
@@ -137,7 +160,7 @@ macro_rules! lua_emevd_enable_disable_commands {
                     |_: &$luaType, ($($arg_name,)*): ( $(Option<$arg_ty>,)* )| -> $luaResultType<()> {
                         let instruction = $crate::cs::EmkInstruction::new($bank, $id);
                         let args = $struct_name {
-                            $($arg_name: $arg_name.unwrap_or_default(),)*
+                            $($arg_name: $arg_name.unwrap_or($arg_default),)*
                             disabled_enabled: $crate::emevd_utils::DisabledEnabled::Enabled,
                         };
                         unsafe {
@@ -186,7 +209,7 @@ macro_rules! lua_emevd_conditions {
     (
         fn $register_name:ident(lua: &$luaType:ty, table: &$luaTableType:ty) -> $luaResultType:ident<()>;
         $(struct $struct_name:ident($bank:literal, $id:literal) {
-            $($arg_name:ident: $arg_ty:ty),* $(,)?
+            $($arg_name:ident: $arg_ty:ty = $arg_default:expr),* $(,)?
         })*
     ) => {
         $(#[repr(C)]
@@ -203,7 +226,7 @@ macro_rules! lua_emevd_conditions {
                         let instruction = $crate::cs::EmkInstruction::new($bank, $id);
                         let args = $struct_name {
                             condition_group: $crate::emevd_utils::ConditionGroup::Main,
-                            $($arg_name: $arg_name.unwrap_or_default(),)*
+                            $($arg_name: $arg_name.unwrap_or($arg_default),)*
                         };
                         unsafe {
                             let args: *const u8 = std::mem::transmute(&args);
