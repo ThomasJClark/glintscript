@@ -7,8 +7,8 @@ use std::{env, fs, path::PathBuf};
  */
 pub(crate) fn get_script_dirs() -> Result<Vec<PathBuf>> {
     // Read the config file supplied by the ME3 launcher
-    let host_config_path =
-        serde_json::from_str::<PathBuf>(&env::var("ME3_LAUNCHER_HOST_CONFIG_PATH")?)?;
+    let host_config_path: PathBuf =
+        serde_json::from_str(&env::var("ME3_LAUNCHER_HOST_CONFIG_PATH")?)?;
 
     // Parse the config file assuming the V1 profile format
     let file_contents = fs::read_to_string(&host_config_path)?;
@@ -16,8 +16,8 @@ pub(crate) fn get_script_dirs() -> Result<Vec<PathBuf>> {
 
     Ok(me3_mod_profile
         .packages()
-        .into_iter()
-        .map(|package| (&package).asset_path().join("script").join("glint"))
+        .iter()
+        .map(|package| package.asset_path().join("script").join("glint"))
         .filter(|dir_path| dir_path.is_dir())
         .collect::<Vec<PathBuf>>())
 }

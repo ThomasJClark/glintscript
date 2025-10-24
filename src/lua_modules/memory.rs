@@ -1,7 +1,6 @@
 /**
  * The `glint.memory` module, used for low-level access to the game's memory
  */
-use anyhow::Result;
 use fromsoftware_shared::Program;
 use microseh::try_seh;
 use mlua::prelude::*;
@@ -63,7 +62,7 @@ where
     Ok(success.unwrap_or(false))
 }
 
-pub(crate) fn create(lua: &Lua) -> Result<mlua::Table> {
+pub(crate) fn create(lua: &Lua) -> LuaResult<mlua::Table> {
     let memory = lua.create_table()?;
 
     memory.set("base", Program::current().image_base())?;

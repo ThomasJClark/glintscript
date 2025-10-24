@@ -8,7 +8,6 @@
 use crate::{
     lua_emevd_commands, lua_emevd_conditions, lua_emevd_enable_disable_commands, lua_emevd_enums,
 };
-use anyhow::Result;
 use mlua::prelude::*;
 
 lua_emevd_enums! {
@@ -1596,7 +1595,7 @@ lua_emevd_conditions! {
     }
 }
 
-pub(crate) fn create(lua: &Lua) -> Result<LuaTable> {
+pub(crate) fn create(lua: &Lua) -> LuaResult<LuaTable> {
     let emevd = lua.create_table()?;
     register_emevd_enums(lua, &emevd)?;
     register_emevd_commands(lua, &emevd)?;
