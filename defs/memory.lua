@@ -1,78 +1,129 @@
 ---@meta
-glint = {}
-glint.memory = {}
+Memory = {}
 
 ---@type number
-glint.memory.base = 0
+Memory.Base = 0
 
 ---@type table<string, number>
-glint.memory.singletons = {}
+Memory.Singletons = {}
 
----@alias memory_getter fun(base: number, pointer_chain: number[] | nil): number | nil
----@alias memory_setter fun(base: number, pointer_chain: number[] | nil, value: number): boolean
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetU8(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_u8() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetU16(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_u16() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetU32(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_u32() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetU64(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_u64() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetI8(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_i8() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetI16(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_i16() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetI32(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_i32() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetI64(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_i64() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetF32(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_f32() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetF64(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_f64() end
+---@param base number
+---@param pointerChain number[] | nil
+---@return number
+function Memory.GetPointer(base, pointerChain) end
 
----@type memory_getter
-function glint.memory.get_pointer() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetU8(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_u8() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetU16(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_u16() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetU32(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_u32() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetU64(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_u64() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetI8(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_i8() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetI16(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_i16() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetI32(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_i32() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetI64(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_i64() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetF32(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_f32() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetF64(base, pointerChain, value) end
 
----@type memory_setter
-function glint.memory.set_f64() end
-
----@type memory_setter
-function glint.memory.set_pointer() end
+---@param base number
+---@param pointerChain number[] | nil
+---@param value number
+---@return boolean
+function Memory.SetPointer(base, pointerChain, value) end

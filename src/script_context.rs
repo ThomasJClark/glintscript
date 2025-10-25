@@ -30,11 +30,10 @@ impl ScriptContext {
     pub fn new() -> Result<Self> {
         let lua = Lua::new();
 
-        // Create global Lua table for the modding API
-        let api = lua.create_table()?;
-        api.set("memory", lua_modules::memory::create(&lua)?)?;
-        api.set("emevd", lua_modules::emevd::create(&lua)?)?;
-        lua.globals().set("glint", api)?;
+        // Create global Lua tables for the modding APIs
+        let globals = lua.globals();
+        globals.set("Memory", lua_modules::memory::create(&lua)?)?;
+        globals.set("EMEVD", lua_modules::emevd::create(&lua)?)?;
 
         let (tx, rx) = channel();
 
@@ -80,6 +79,8 @@ impl ScriptContext {
      * Lua callbacks
      */
     pub fn update(&mut self) {
+        println!("Update");
+
         if let Err(err) = self.poll_files() {
             println!("{}", err);
         }
