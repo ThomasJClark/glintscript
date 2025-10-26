@@ -28,7 +28,7 @@ fn start() -> Result<()> {
 
     let cs_task = unsafe { get_instance::<CSTaskImp>() }.unwrap();
     cs_task.run_recurring(
-        move |_: &FD4TaskData| script_context.update(),
+        move |data: &FD4TaskData| script_context.update(data.delta_time.time),
         CSTaskGroupIndex::FrameBegin,
     );
 
@@ -41,7 +41,9 @@ pub extern "C" fn DllMain(_: HANDLE, reason: u32) -> bool {
         std::thread::spawn(move || {
             wait_for_system_init(&Program::current(), Duration::MAX)
                 .expect("Timeout waiting for system init");
-            start().unwrap();
+            if let Err(e) = start() {
+                println!("{}", e);
+            }
         });
     }
 
