@@ -6,3 +6,16 @@ InitializeTask(function(deltaTime)
     print("screen size: " .. tostring(screenWidth) .. "x" .. tostring(screenHeight))
     print("fps: " .. tostring(1 / deltaTime))
 end)
+
+-- Register a coroutine that can pause while waiting for certain game states, much like an event in
+-- DarkScript.
+-- InitializeEvent(function(self)
+--     print("Waitng for crab...")
+--     self:WaitFor(function() return EMEVD.CharacterHasSpEffect(10000, 12345) end)
+
+--     print("yum")
+--     EMEVD.DisplayBanner(EMEVD.TextBannerType.GodSlain)
+
+--     self:WaitFor(function() return not EMEVD.CharacterHasSpEffect(10000, 12345) end)
+--     self:RestartEvent()
+-- end)

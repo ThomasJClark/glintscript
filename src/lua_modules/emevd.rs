@@ -1,10 +1,3 @@
-/**
- * The `glint.emevd` module. Allows calling EMEVD operations from Lua.
- *
- * Instructions and enums are based on the EMEDF documentation reverse engineered for DarkScript3
- * by AinTunez and thefifthmatt:
- * https://github.com/AinTunez/DarkScript3/blob/d243ce692bf42b92bace74d2873e1970fb4d0f94/DarkScript3/Resources/er-common.emedf.json
- */
 use crate::{
     lua_emevd_commands, lua_emevd_conditions, lua_emevd_enable_disable_commands, lua_emevd_enums,
 };
@@ -1595,11 +1588,22 @@ lua_emevd_conditions! {
     }
 }
 
-pub(crate) fn create(lua: &Lua) -> LuaResult<LuaTable> {
-    let emevd = lua.create_table()?;
-    register_emevd_enums(lua, &emevd)?;
-    register_emevd_commands(lua, &emevd)?;
-    register_emevd_enable_disable_commands(lua, &emevd)?;
-    register_emevd_conditions(lua, &emevd)?;
-    Ok(emevd)
+/**
+ * The `glint.emevd` module. Allows calling EMEVD operations from Lua.
+ *
+ * Instructions and enums are based on the EMEDF documentation reverse engineered for DarkScript3
+ * by AinTunez and thefifthmatt:
+ * https://github.com/AinTunez/DarkScript3/blob/d243ce692bf42b92bace74d2873e1970fb4d0f94/DarkScript3/Resources/er-common.emedf.json
+ */
+pub(crate) struct EMEVD;
+
+impl EMEVD {
+    pub fn register(self: &Self, lua: &Lua) -> LuaResult<()> {
+        let emevd = lua.create_table()?;
+        register_emevd_enums(lua, &emevd)?;
+        register_emevd_commands(lua, &emevd)?;
+        register_emevd_enable_disable_commands(lua, &emevd)?;
+        register_emevd_conditions(lua, &emevd)?;
+        lua.globals().set("EMEVD", emevd)
+    }
 }

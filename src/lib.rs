@@ -5,19 +5,22 @@ mod me3_profile;
 mod script_context;
 
 use anyhow::{Context, Result};
-use eldenring::{
-    cs::{CSTaskGroupIndex, CSTaskImp},
-    fd4::FD4TaskData,
+use eldenring_util::system::wait_for_system_init;
+use fromsoftware_shared::Program;
+use std::{
+    sync::{Arc, LazyLock, Mutex},
+    time::Duration,
 };
-use eldenring_util::{system::wait_for_system_init, task::CSTaskImpExt};
-use fromsoftware_shared::{Program, get_instance};
-use std::time::Duration;
 use windows::Win32::{Foundation::HANDLE, System::SystemServices::DLL_PROCESS_ATTACH};
 
 use crate::script_context::ScriptContext;
 
+static SCRIPT_CONTEXT: LazyLock<Arc<Mutex<ScriptContext>>> = LazyLock::new(|| ScriptContext::new());
+
 fn start() -> Result<()> {
-    let script_context = Box::leak(Box::new(ScriptContext::new()?));
+    let mut script_context = SCRIPT_CONTEXT.lock().unwrap();
+
+    script_context.register_apis()?;
 
     let script_dirs = me3_profile::get_script_dirs()
         .context("Couldn't find any script folders in me3 packages")?;
@@ -25,12 +28,6 @@ fn start() -> Result<()> {
     for dir in script_dirs {
         script_context.add_dir(&dir)?;
     }
-
-    let cs_task = unsafe { get_instance::<CSTaskImp>() }.unwrap();
-    cs_task.run_recurring(
-        move |data: &FD4TaskData| script_context.update(data.delta_time.time),
-        CSTaskGroupIndex::FrameBegin,
-    );
 
     Ok(())
 }

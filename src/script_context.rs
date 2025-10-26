@@ -1,16 +1,14 @@
 use anyhow::Result;
 use mlua::prelude::*;
+use notify_debouncer_mini::{DebouncedEvent, DebouncedEventKind, Debouncer, new_debouncer};
 use std::{
     fs,
     path::{Path, PathBuf},
-    sync::{
-        Arc, Mutex,
-        mpsc::{Receiver, channel},
-    },
+    sync::{Arc, Mutex, Weak},
     time::Duration,
 };
 
-use crate::lua_modules;
+use crate::lua_modules::{emevd::EMEVD, memory::Memory, tasks::Tasks};
 
 pub fn is_entrypoint(path: &Path) -> bool {
     path.to_str().unwrap().ends_with(".glint.lua")
@@ -24,50 +22,44 @@ pub struct Script {
 pub struct ScriptContext {
     lua: Lua,
     scripts: Vec<Script>,
-    debouncer: notify_debouncer_mini::Debouncer<notify::RecommendedWatcher>,
-    receiver: Receiver<notify_debouncer_mini::DebouncedEvent>,
-    tasks: Arc<Mutex<Vec<LuaFunction>>>,
+
+    // For hot reloading
+    debounced_watcher: Debouncer<notify::RecommendedWatcher>,
+
+    // Modding APIs
+    memory: Memory,
+    emevd: EMEVD,
+    tasks: Tasks,
 }
 
 impl ScriptContext {
-    pub fn new() -> Result<Self> {
-        let (tx, rx) = channel();
-
-        let new = Self {
-            lua: Lua::new(),
-            scripts: Vec::new(),
-            debouncer: notify_debouncer_mini::new_debouncer(
-                Duration::from_millis(100),
-                move |events: notify::Result<Vec<notify_debouncer_mini::DebouncedEvent>>| {
-                    for event in events.unwrap() {
-                        tx.send(event).unwrap();
+    pub fn new() -> Arc<Mutex<Self>> {
+        Arc::new_cyclic(|weak_script_context: &Weak<Mutex<Self>>| {
+            let weak_script_context = Weak::clone(weak_script_context);
+            Mutex::new(Self {
+                lua: Lua::new(),
+                scripts: Vec::new(),
+                debounced_watcher: new_debouncer(Duration::from_millis(100), move |events| {
+                    if let Some(script_context) = weak_script_context.upgrade() {
+                        let mut script_context = script_context.lock().unwrap();
+                        script_context.handle_fs_notifications(events);
                     }
-                },
-            )?,
-            receiver: rx,
-            tasks: Arc::new(Mutex::new(Vec::new())),
-        };
-
-        new.create_api()?;
-
-        Ok(new)
+                })
+                .unwrap(),
+                memory: Memory,
+                emevd: EMEVD,
+                tasks: Tasks::new(),
+            })
+        })
     }
 
-    fn create_api(&self) -> LuaResult<()> {
-        // Create global Lua tables for the modding APIs
-        let globals = self.lua.globals();
-        globals.set("Memory", lua_modules::memory::create(&self.lua)?)?;
-        globals.set("EMEVD", lua_modules::emevd::create(&self.lua)?)?;
-        globals.set("InitializeTask", {
-            let tasks = self.tasks.clone();
-            self.lua.create_function(move |_, func: LuaFunction| {
-                let mut tasks = tasks.lock().unwrap();
-                tasks.push(func);
-                Ok(())
-            })?
-        })?;
-
-        Ok(())
+    /**
+     * Add the modding APIs to the global environment table
+     */
+    pub fn register_apis(self: &Self) -> LuaResult<()> {
+        self.memory.register(&self.lua)?;
+        self.emevd.register(&self.lua)?;
+        self.tasks.register(&self.lua)
     }
 
     /**
@@ -87,7 +79,7 @@ impl ScriptContext {
             }
         }
 
-        self.debouncer
+        self.debounced_watcher
             .watcher()
             .watch(dir_path, notify::RecursiveMode::NonRecursive)?;
 
@@ -95,17 +87,17 @@ impl ScriptContext {
     }
 
     /**
-     * Updater called each frame. Check for modified scripts to hot reload, and update any
-     * registered Lua callbacks
+     * Check for modified scripts to hot reload
      */
-    pub fn update(&mut self, delta_time: f32) {
-        if let Err(err) = self.poll_files() {
-            println!("{}", err);
-        }
+    fn handle_fs_notifications(&mut self, events: notify::Result<Vec<DebouncedEvent>>) {
+        let Ok(events) = events else { return };
 
-        for task in self.tasks.lock().unwrap().iter() {
-            if let Err(e) = task.call::<()>(delta_time) {
-                println!("{}", e);
+        for event in events {
+            println!("E {:#?}", event);
+            if event.kind == DebouncedEventKind::Any && is_entrypoint(&event.path) {
+                if let Err(e) = self.load_entrypoint(&event.path) {
+                    println!("{}", e);
+                }
             }
         }
     }
@@ -128,7 +120,6 @@ impl ScriptContext {
 
         match self.scripts.iter_mut().find(|s| s.path == path) {
             None => {
-                // This script is being loaded for the first time - initialize it
                 println!("Loading {}", path.display());
 
                 let path = path.to_path_buf();
@@ -143,39 +134,14 @@ impl ScriptContext {
                 self.scripts.push(Script { path, environment });
             }
             Some(script) => {
-                // The script was already loaded - reload it
                 println!("Reloading {}", path.display());
 
                 // Remove any existing registered callbacks from the same script to prevent
                 // duplicates
-                let env = &script.environment;
-                self.tasks.lock().unwrap().retain(|task| {
-                    if let Some(task_env) = task.environment() {
-                        task_env != *env
-                    } else {
-                        true
-                    }
-                });
+                self.tasks.drop_environment(&script.environment);
 
+                // Re-evaluate the script
                 eval(&script.environment)?;
-            }
-        }
-
-        Ok(())
-    }
-
-    /**
-     * Hot reload an added or modified entrypoint, returning without blocking if there are no
-     * changes
-     */
-    fn poll_files(&mut self) -> Result<()> {
-        if let Ok(event) = self.receiver.try_recv() {
-            if event.kind == notify_debouncer_mini::DebouncedEventKind::Any
-                && is_entrypoint(&event.path)
-            {
-                if let Err(e) = self.load_entrypoint(&event.path) {
-                    println!("{}", e);
-                }
             }
         }
 

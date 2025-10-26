@@ -1,6 +1,3 @@
-/**
- * The `glint.memory` module, used for low-level access to the game's memory
- */
 use fromsoftware_shared::Program;
 use microseh::try_seh;
 use mlua::prelude::*;
@@ -62,47 +59,54 @@ where
     Ok(success.unwrap_or(false))
 }
 
-pub(crate) fn create(lua: &Lua) -> LuaResult<mlua::Table> {
-    let memory = lua.create_table()?;
+/**
+ * The `glint.memory` module, used for low-level access to the game's memory
+ */
+pub(crate) struct Memory;
 
-    memory.set("Base", Program::current().image_base())?;
+impl Memory {
+    pub(crate) fn register(self: &Self, lua: &Lua) -> LuaResult<()> {
+        let memory = lua.create_table()?;
 
-    let singletons = lua.create_table()?;
-    for (name, addr) in from_singleton::map() {
-        singletons.set(name.as_str(), addr.as_ptr() as usize)?;
+        memory.set("Base", Program::current().image_base())?;
+
+        let singletons = lua.create_table()?;
+        for (name, addr) in from_singleton::map() {
+            singletons.set(name.as_str(), addr.as_ptr() as usize)?;
+        }
+
+        memory.set("Singletons", singletons)?;
+
+        memory.set("GetU8", lua.create_function(lua_getter_function::<u8>)?)?;
+        memory.set("GetU16", lua.create_function(lua_getter_function::<u16>)?)?;
+        memory.set("GetU32", lua.create_function(lua_getter_function::<u32>)?)?;
+        memory.set("GetU64", lua.create_function(lua_getter_function::<u64>)?)?;
+        memory.set("GetI8", lua.create_function(lua_getter_function::<i8>)?)?;
+        memory.set("GetI16", lua.create_function(lua_getter_function::<i16>)?)?;
+        memory.set("GetI32", lua.create_function(lua_getter_function::<i32>)?)?;
+        memory.set("GetI64", lua.create_function(lua_getter_function::<i64>)?)?;
+        memory.set("GetF32", lua.create_function(lua_getter_function::<f32>)?)?;
+        memory.set("GetF64", lua.create_function(lua_getter_function::<f64>)?)?;
+        memory.set(
+            "GetPointer",
+            lua.create_function(lua_getter_function::<usize>)?,
+        )?;
+
+        memory.set("SetU8", lua.create_function(lua_setter_function::<u8>)?)?;
+        memory.set("SetU16", lua.create_function(lua_setter_function::<u16>)?)?;
+        memory.set("SetU32", lua.create_function(lua_setter_function::<u32>)?)?;
+        memory.set("SetU64", lua.create_function(lua_setter_function::<u64>)?)?;
+        memory.set("SetI8", lua.create_function(lua_setter_function::<i8>)?)?;
+        memory.set("SetI16", lua.create_function(lua_setter_function::<i16>)?)?;
+        memory.set("SetI32", lua.create_function(lua_setter_function::<i32>)?)?;
+        memory.set("SetI64", lua.create_function(lua_setter_function::<i64>)?)?;
+        memory.set("SetF32", lua.create_function(lua_setter_function::<f32>)?)?;
+        memory.set("SetF64", lua.create_function(lua_setter_function::<f64>)?)?;
+        memory.set(
+            "SetPointer",
+            lua.create_function(lua_setter_function::<usize>)?,
+        )?;
+
+        lua.globals().set("Memory", memory)
     }
-
-    memory.set("Singletons", singletons)?;
-
-    memory.set("GetU8", lua.create_function(lua_getter_function::<u8>)?)?;
-    memory.set("GetU16", lua.create_function(lua_getter_function::<u16>)?)?;
-    memory.set("GetU32", lua.create_function(lua_getter_function::<u32>)?)?;
-    memory.set("GetU64", lua.create_function(lua_getter_function::<u64>)?)?;
-    memory.set("GetI8", lua.create_function(lua_getter_function::<i8>)?)?;
-    memory.set("GetI16", lua.create_function(lua_getter_function::<i16>)?)?;
-    memory.set("GetI32", lua.create_function(lua_getter_function::<i32>)?)?;
-    memory.set("GetI64", lua.create_function(lua_getter_function::<i64>)?)?;
-    memory.set("GetF32", lua.create_function(lua_getter_function::<f32>)?)?;
-    memory.set("GetF64", lua.create_function(lua_getter_function::<f64>)?)?;
-    memory.set(
-        "GetPointer",
-        lua.create_function(lua_getter_function::<usize>)?,
-    )?;
-
-    memory.set("SetU8", lua.create_function(lua_setter_function::<u8>)?)?;
-    memory.set("SetU16", lua.create_function(lua_setter_function::<u16>)?)?;
-    memory.set("SetU32", lua.create_function(lua_setter_function::<u32>)?)?;
-    memory.set("SetU64", lua.create_function(lua_setter_function::<u64>)?)?;
-    memory.set("SetI8", lua.create_function(lua_setter_function::<i8>)?)?;
-    memory.set("SetI16", lua.create_function(lua_setter_function::<i16>)?)?;
-    memory.set("SetI32", lua.create_function(lua_setter_function::<i32>)?)?;
-    memory.set("SetI64", lua.create_function(lua_setter_function::<i64>)?)?;
-    memory.set("SetF32", lua.create_function(lua_setter_function::<f32>)?)?;
-    memory.set("SetF64", lua.create_function(lua_setter_function::<f64>)?)?;
-    memory.set(
-        "SetPointer",
-        lua.create_function(lua_setter_function::<usize>)?,
-    )?;
-
-    Ok(memory)
 }
