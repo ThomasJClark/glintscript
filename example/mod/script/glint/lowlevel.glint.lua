@@ -1,21 +1,20 @@
--- Register a function that runs once per frame. This is a good place to do low-level memory reads
--- and writes
-InitializeTask(function(deltaTime)
-    local screenWidth = Memory.GetI32(Memory.Base + 0x3b3fcd8)
-    local screenHeight = Memory.GetI32(Memory.Base + 0x3b3fcdc)
-    print("screen size: " .. tostring(screenWidth) .. "x" .. tostring(screenHeight))
-    print("fps: " .. tostring(1 / deltaTime))
-end)
+local LOCAL_PLAYER = 10000
+local BOILED_CRAB_SPEFFECT_ID = 500820
 
--- Register a coroutine that can pause while waiting for certain game states, much like an event in
--- DarkScript.
--- InitializeEvent(function(self)
---     print("Waitng for crab...")
---     self:WaitFor(function() return EMEVD.CharacterHasSpEffect(10000, 12345) end)
+local function emevdDemo()
+    print("Waitng for crab...")
 
---     print("yum")
---     EMEVD.DisplayBanner(EMEVD.TextBannerType.GodSlain)
+    while not EMEVD.CharacterHasSpEffect(LOCAL_PLAYER, BOILED_CRAB_SPEFFECT_ID) do
+        coroutine.yield()
+    end
 
---     self:WaitFor(function() return not EMEVD.CharacterHasSpEffect(10000, 12345) end)
---     self:RestartEvent()
--- end)
+    print("yum")
+
+    while EMEVD.CharacterHasSpEffect(LOCAL_PLAYER, BOILED_CRAB_SPEFFECT_ID) do
+        coroutine.yield()
+    end
+
+    EMEVD.RestartEvent()
+end
+
+EMEVD.InitializeEvent(emevdDemo)
