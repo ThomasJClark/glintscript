@@ -93,7 +93,6 @@ impl ScriptContext {
         let Ok(events) = events else { return };
 
         for event in events {
-            println!("E {:#?}", event);
             if event.kind == DebouncedEventKind::Any && is_entrypoint(&event.path) {
                 if let Err(e) = self.load_entrypoint(&event.path) {
                     println!("{}", e);
