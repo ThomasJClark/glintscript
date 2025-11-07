@@ -1,62 +1,89 @@
+use std::num::NonZeroUsize;
+
 use fromsoftware_shared::Program;
 use microseh::try_seh;
 use mlua::prelude::*;
 use pelite::pe64::PeObject;
 
+#[derive(Debug)]
+struct MemoryError(String);
+
+impl std::fmt::Display for MemoryError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+impl std::error::Error for MemoryError {}
+
+impl MemoryError {
+    fn new(
+        seh_exception: microseh::Exception,
+        read: bool,
+        base: usize,
+        pointer_chain: Option<&[usize]>,
+    ) -> Self {
+        MemoryError(if let Some(pointer_chain) = pointer_chain {
+            format!(
+                "Access violation trying to {} memory at {:#x} (base={:#x}, pointer_chain={:?}): {}",
+                if read { "read" } else { "write" },
+                seh_exception.address() as usize,
+                base,
+                pointer_chain,
+                seh_exception.code(),
+            )
+        } else {
+            format!(
+                "Access violation trying to {} memory at {:#x}: {}",
+                if read { "read" } else { "write" },
+                seh_exception.address() as usize,
+                base,
+            )
+        })
+    }
+}
+
 /**
  * Follow a chain of pointer offsets from the given base, returning the value at the end of the
  * chain or `None` if any pointer in the chain is null.
  */
-unsafe fn get_pointer_chain<T>(base: usize, pointer_chain: Option<&[usize]>) -> Option<*mut T> {
-    let mut pointer = base;
+unsafe fn get_pointer_chain(base: usize, pointer_chain: Option<&[usize]>) -> Option<NonZeroUsize> {
+    let mut pointer = NonZeroUsize::new(base)?;
 
     for offset in pointer_chain.unwrap_or(&[]) {
-        if pointer == 0 {
-            return None;
-        }
-
-        pointer = unsafe { *(pointer as *mut usize) } + offset;
+        pointer =
+            NonZeroUsize::new(*(unsafe { (pointer.get() as *const usize).as_ref() }?) + offset)?;
     }
 
-    if pointer == 0 {
-        return None;
-    }
-
-    Some(pointer as *mut T)
+    Some(pointer)
 }
 
-fn lua_getter_function<T>(
-    _: &Lua,
-    (base, pointer_chain): (usize, Option<Vec<usize>>),
-) -> LuaResult<Option<T>>
+fn get<T>(_: &Lua, (base, pointer_chain): (usize, Option<Vec<usize>>)) -> LuaResult<Option<T>>
 where
     T: Copy,
 {
-    let value = try_seh(|| unsafe {
-        get_pointer_chain::<T>(base, pointer_chain.as_ref().map(|c| c.as_slice())).map(|addr| *addr)
-    });
+    let pointer_chain = pointer_chain.as_ref().map(|c| c.as_slice());
 
-    Ok(value.unwrap_or(None))
+    try_seh(|| unsafe {
+        get_pointer_chain(base, pointer_chain).map(|pointer| *(pointer.get() as *const T))
+    })
+    .map_err(|e| LuaError::external(MemoryError::new(e, true, base, pointer_chain)))
 }
 
-fn lua_setter_function<T>(
-    _: &Lua,
-    (base, pointer_chain, value): (usize, Option<Vec<usize>>, T),
-) -> LuaResult<bool>
+fn set<T>(_: &Lua, (base, pointer_chain, value): (usize, Option<Vec<usize>>, T)) -> LuaResult<bool>
 where
     T: Copy,
 {
-    let success = try_seh(|| unsafe {
-        if let Some(dest) =
-            get_pointer_chain::<T>(base, pointer_chain.as_ref().map(|c| c.as_slice()))
-        {
-            *dest = value;
-            return true;
-        }
-        return false;
-    });
+    let pointer_chain = pointer_chain.as_ref().map(|c| c.as_slice());
 
-    Ok(success.unwrap_or(false))
+    try_seh(|| unsafe {
+        get_pointer_chain(base, pointer_chain)
+            .inspect(|pointer| {
+                *(pointer.get() as *mut T) = value;
+            })
+            .is_some()
+    })
+    .map_err(|e| LuaError::external(MemoryError::new(e, false, base, pointer_chain)))
 }
 
 /**
@@ -77,35 +104,29 @@ impl Memory {
 
         memory.set("Singletons", singletons)?;
 
-        memory.set("GetU8", lua.create_function(lua_getter_function::<u8>)?)?;
-        memory.set("GetU16", lua.create_function(lua_getter_function::<u16>)?)?;
-        memory.set("GetU32", lua.create_function(lua_getter_function::<u32>)?)?;
-        memory.set("GetU64", lua.create_function(lua_getter_function::<u64>)?)?;
-        memory.set("GetI8", lua.create_function(lua_getter_function::<i8>)?)?;
-        memory.set("GetI16", lua.create_function(lua_getter_function::<i16>)?)?;
-        memory.set("GetI32", lua.create_function(lua_getter_function::<i32>)?)?;
-        memory.set("GetI64", lua.create_function(lua_getter_function::<i64>)?)?;
-        memory.set("GetF32", lua.create_function(lua_getter_function::<f32>)?)?;
-        memory.set("GetF64", lua.create_function(lua_getter_function::<f64>)?)?;
-        memory.set(
-            "GetPointer",
-            lua.create_function(lua_getter_function::<usize>)?,
-        )?;
+        memory.set("GetU8", lua.create_function(get::<u8>)?)?;
+        memory.set("GetU16", lua.create_function(get::<u16>)?)?;
+        memory.set("GetU32", lua.create_function(get::<u32>)?)?;
+        memory.set("GetU64", lua.create_function(get::<u64>)?)?;
+        memory.set("GetI8", lua.create_function(get::<i8>)?)?;
+        memory.set("GetI16", lua.create_function(get::<i16>)?)?;
+        memory.set("GetI32", lua.create_function(get::<i32>)?)?;
+        memory.set("GetI64", lua.create_function(get::<i64>)?)?;
+        memory.set("GetF32", lua.create_function(get::<f32>)?)?;
+        memory.set("GetF64", lua.create_function(get::<f64>)?)?;
+        memory.set("GetPointer", lua.create_function(get::<usize>)?)?;
 
-        memory.set("SetU8", lua.create_function(lua_setter_function::<u8>)?)?;
-        memory.set("SetU16", lua.create_function(lua_setter_function::<u16>)?)?;
-        memory.set("SetU32", lua.create_function(lua_setter_function::<u32>)?)?;
-        memory.set("SetU64", lua.create_function(lua_setter_function::<u64>)?)?;
-        memory.set("SetI8", lua.create_function(lua_setter_function::<i8>)?)?;
-        memory.set("SetI16", lua.create_function(lua_setter_function::<i16>)?)?;
-        memory.set("SetI32", lua.create_function(lua_setter_function::<i32>)?)?;
-        memory.set("SetI64", lua.create_function(lua_setter_function::<i64>)?)?;
-        memory.set("SetF32", lua.create_function(lua_setter_function::<f32>)?)?;
-        memory.set("SetF64", lua.create_function(lua_setter_function::<f64>)?)?;
-        memory.set(
-            "SetPointer",
-            lua.create_function(lua_setter_function::<usize>)?,
-        )?;
+        memory.set("SetU8", lua.create_function(set::<u8>)?)?;
+        memory.set("SetU16", lua.create_function(set::<u16>)?)?;
+        memory.set("SetU32", lua.create_function(set::<u32>)?)?;
+        memory.set("SetU64", lua.create_function(set::<u64>)?)?;
+        memory.set("SetI8", lua.create_function(set::<i8>)?)?;
+        memory.set("SetI16", lua.create_function(set::<i16>)?)?;
+        memory.set("SetI32", lua.create_function(set::<i32>)?)?;
+        memory.set("SetI64", lua.create_function(set::<i64>)?)?;
+        memory.set("SetF32", lua.create_function(set::<f32>)?)?;
+        memory.set("SetF64", lua.create_function(set::<f64>)?)?;
+        memory.set("SetPointer", lua.create_function(set::<usize>)?)?;
 
         lua.globals().set("Memory", memory)
     }
