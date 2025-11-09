@@ -8,7 +8,7 @@ use std::{
     time::Duration,
 };
 
-use crate::lua_modules::{emevd::EMEVD, memory::Memory, tasks::Tasks};
+use crate::lua_modules::{emevd, memory, tasks};
 
 pub fn is_entrypoint(path: &Path) -> bool {
     path.to_str().unwrap().ends_with(".glint.lua")
@@ -22,14 +22,7 @@ pub struct Script {
 pub struct ScriptContext {
     lua: Lua,
     scripts: Vec<Script>,
-
-    // For hot reloading
     debounced_watcher: Debouncer<notify::RecommendedWatcher>,
-
-    // Modding APIs
-    memory: Memory,
-    emevd: EMEVD,
-    tasks: Tasks,
 }
 
 impl ScriptContext {
@@ -46,9 +39,6 @@ impl ScriptContext {
                     }
                 })
                 .unwrap(),
-                memory: Memory,
-                emevd: EMEVD,
-                tasks: Tasks::new(),
             })
         })
     }
@@ -57,9 +47,9 @@ impl ScriptContext {
      * Add the modding APIs to the global environment table
      */
     pub fn register_apis(self: &Self) -> LuaResult<()> {
-        self.memory.register(&self.lua)?;
-        self.emevd.register(&self.lua)?;
-        self.tasks.register(&self.lua)
+        memory::register(&self.lua)?;
+        emevd::register(&self.lua)?;
+        tasks::register(&self.lua)
     }
 
     /**
@@ -137,7 +127,7 @@ impl ScriptContext {
 
                 // Remove any existing registered callbacks from the same script to prevent
                 // duplicates
-                self.tasks.drop_environment(&script.environment);
+                tasks::drop_environment(&self.lua, &script.environment);
 
                 // Re-evaluate the script
                 eval(&script.environment)?;

@@ -1595,15 +1595,11 @@ lua_emevd_conditions! {
  * by AinTunez and thefifthmatt:
  * https://github.com/AinTunez/DarkScript3/blob/d243ce692bf42b92bace74d2873e1970fb4d0f94/DarkScript3/Resources/er-common.emedf.json
  */
-pub(crate) struct EMEVD;
-
-impl EMEVD {
-    pub fn register(self: &Self, lua: &Lua) -> LuaResult<()> {
-        let emevd = lua.create_table()?;
-        register_emevd_enums(lua, &emevd)?;
-        register_emevd_commands(lua, &emevd)?;
-        register_emevd_enable_disable_commands(lua, &emevd)?;
-        register_emevd_conditions(lua, &emevd)?;
-        lua.globals().set("EMEVD", emevd)
-    }
+pub(crate) fn register(lua: &Lua) -> LuaResult<()> {
+    let emevd = lua.create_table()?;
+    register_emevd_enums(lua, &emevd)?;
+    register_emevd_commands(lua, &emevd)?;
+    register_emevd_enable_disable_commands(lua, &emevd)?;
+    register_emevd_conditions(lua, &emevd)?;
+    lua.globals().set("EMEVD", emevd)
 }
