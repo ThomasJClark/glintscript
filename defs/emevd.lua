@@ -1,27 +1,27 @@
 ---@meta
 EMEVD = {}
 
----@enum OnOff
+---@enum EMEVD.OnOff
 EMEVD.OnOff = {
     Off = 0,
     On = 1,
 }
 
----@enum OnOffChange
+---@enum EMEVD.OnOffChange
 EMEVD.OnOffChange = {
     Off = 0,
     On = 1,
     Change = 2,
 }
 
----@enum TargetEventFlagType
+---@enum EMEVD.TargetEventFlagType
 EMEVD.TargetEventFlagType = {
     EventFlag = 0,
     EventId = 1,
     EventIdSlotNumber = 2,
 }
 
----@enum ComparisonType
+---@enum EMEVD.ComparisonType
 EMEVD.ComparisonType = {
     Equal = 0,
     Notequal = 1,
@@ -31,7 +31,7 @@ EMEVD.ComparisonType = {
     Lessorequal = 5,
 }
 
----@enum LogicalOperationType
+---@enum EMEVD.LogicalOperationType
 EMEVD.LogicalOperationType = {
     AllOn = 0,
     AllOff = 1,
@@ -39,7 +39,7 @@ EMEVD.LogicalOperationType = {
     NotAllOn = 3,
 }
 
----@enum CalculationType
+---@enum EMEVD.CalculationType
 EMEVD.CalculationType = {
     Add = 0,
     Sub = 1,
@@ -49,7 +49,7 @@ EMEVD.CalculationType = {
     Assign = 5,
 }
 
----@enum CutscenePlayMode
+---@enum EMEVD.CutscenePlayMode
 EMEVD.CutscenePlayMode = {
     Skippable = 0,
     Unskippable = 2,
@@ -61,31 +61,31 @@ EMEVD.CutscenePlayMode = {
     SkippableWithWhiteFadeOut2 = 64,
 }
 
----@enum DestructionState
+---@enum EMEVD.DestructionState
 EMEVD.DestructionState = {
     Undestroyed = 0,
     Destroyed = 1,
 }
 
----@enum InsideOutsideState
+---@enum EMEVD.InsideOutsideState
 EMEVD.InsideOutsideState = {
     Outside = 0,
     Inside = 1,
 }
 
----@enum DeathState
+---@enum EMEVD.DeathState
 EMEVD.DeathState = {
     Alive = 0,
     Dead = 1,
 }
 
----@enum OwnershipState
+---@enum EMEVD.OwnershipState
 EMEVD.OwnershipState = {
     DoesntOwn = 0,
     Owns = 1,
 }
 
----@enum TeamType
+---@enum EMEVD.TeamType
 EMEVD.TeamType = {
     Disabled = 0,
     Human = 1,
@@ -122,27 +122,27 @@ EMEVD.TeamType = {
     Default = -1,
 }
 
----@enum TargetEntityType
+---@enum EMEVD.TargetEntityType
 EMEVD.TargetEntityType = {
     Asset = 0,
     Area = 1,
     Character = 2,
 }
 
----@enum DisabledEnabled
+---@enum EMEVD.DisabledEnabled
 EMEVD.DisabledEnabled = {
     Disabled = 0,
     Enabled = 1,
 }
 
----@enum BitopType
+---@enum EMEVD.BitopType
 EMEVD.BitopType = {
     Add = 0,
     Delete = 1,
     Invert = 2,
 }
 
----@enum NavimeshType
+---@enum EMEVD.NavimeshType
 EMEVD.NavimeshType = {
     Solid = 1,
     Exit = 2,
@@ -159,20 +159,20 @@ EMEVD.NavimeshType = {
     ClosedDoor = 8192,
 }
 
----@enum PromptType
+---@enum EMEVD.PromptType
 EMEVD.PromptType = {
     YesNo = 0,
     OkCancel = 1,
 }
 
----@enum NumberOfOptions
+---@enum EMEVD.NumberOfOptions
 EMEVD.NumberOfOptions = {
     OneButton = 1,
     TwoButtons = 2,
     NoButtons = 6,
 }
 
----@enum SoundType
+---@enum EMEVD.SoundType
 EMEVD.SoundType = {
     EnvironmentalSound = 0,
     CharacterMotion = 1,
@@ -188,14 +188,14 @@ EMEVD.SoundType = {
     GeometrySet = 14,
 }
 
----@enum DamageTargetType
+---@enum EMEVD.DamageTargetType
 EMEVD.DamageTargetType = {
     Character = 1,
     Map = 2,
     CharacterMap = 3,
 }
 
----@enum ItemType
+---@enum EMEVD.ItemType
 EMEVD.ItemType = {
     Weapon = 0,
     Armor = 1,
@@ -203,7 +203,7 @@ EMEVD.ItemType = {
     Goods = 3,
 }
 
----@enum TargetType
+---@enum EMEVD.TargetType
 EMEVD.TargetType = {
     Alive = 0,
     WhitePhantom = 1,
@@ -215,7 +215,7 @@ EMEVD.TargetType = {
     Invader3 = 18,
 }
 
----@enum TextBannerType
+---@enum EMEVD.TextBannerType
 EMEVD.TextBannerType = {
     YouDied = 2,
     HostVanquished = 5,
@@ -239,7 +239,7 @@ EMEVD.TextBannerType = {
     Defeat = 34,
 }
 
----@enum MultiplayerState
+---@enum EMEVD.MultiplayerState
 EMEVD.MultiplayerState = {
     Host = 0,
     Client = 1,
@@ -250,7 +250,7 @@ EMEVD.MultiplayerState = {
     InvasionPending = 6,
 }
 
----@enum NPCPartType
+---@enum EMEVD.NPCPartType
 EMEVD.NPCPartType = {
     Part1 = 1,
     Part2 = 2,
@@ -285,13 +285,13 @@ EMEVD.NPCPartType = {
     WeakPoint = 31,
 }
 
----@enum AuthorityLevel
+---@enum EMEVD.AuthorityLevel
 EMEVD.AuthorityLevel = {
     Normal = 0,
     Forced = 8192,
 }
 
----@enum AIStateType
+---@enum EMEVD.AIStateType
 EMEVD.AIStateType = {
     Normal = 0,
     Recognition = 1,
@@ -302,7 +302,7 @@ EMEVD.AIStateType = {
     WaitBeforeForget = 6,
 }
 
----@enum SummonSignType
+---@enum EMEVD.SummonSignType
 EMEVD.SummonSignType = {
     WhiteSign = 0,
     BlackSign = 1,
@@ -310,7 +310,7 @@ EMEVD.SummonSignType = {
     NPCWhiteSign = 20,
 }
 
----@enum ClassType
+---@enum EMEVD.ClassType
 EMEVD.ClassType = {
     Vagabond = 0,
     Warrior = 1,
@@ -324,7 +324,7 @@ EMEVD.ClassType = {
     Wretch = 9,
 }
 
----@enum CharacterUpdateFrequency
+---@enum EMEVD.CharacterUpdateFrequency
 EMEVD.CharacterUpdateFrequency = {
     AlwaysUpdate = 0,
     Every2Frames = 2,
@@ -334,14 +334,14 @@ EMEVD.CharacterUpdateFrequency = {
     NoUpdate = -1,
 }
 
----@enum DamageType
+---@enum EMEVD.DamageType
 EMEVD.DamageType = {
     Unspecified = 0,
     Fire = 1,
     Magic = 2,
 }
 
----@enum ArmorType
+---@enum EMEVD.ArmorType
 EMEVD.ArmorType = {
     Head = 0,
     Body = 1,
@@ -349,19 +349,19 @@ EMEVD.ArmorType = {
     Legs = 3,
 }
 
----@enum Gender
+---@enum EMEVD.Gender
 EMEVD.Gender = {
     Male = 0,
     Female = 1,
 }
 
----@enum WorldType
+---@enum EMEVD.WorldType
 EMEVD.WorldType = {
     OwnWorld = 0,
     OtherWorld = 1,
 }
 
----@enum BossBGMState
+---@enum EMEVD.BossBGMState
 EMEVD.BossBGMState = {
     Start = 0,
     HeatUp = 1,
@@ -370,7 +370,7 @@ EMEVD.BossBGMState = {
     Stop2 = -1,
 }
 
----@enum Weather
+---@enum EMEVD.Weather
 EMEVD.Weather = {
     Default = 0,
     Rain = 1,
@@ -399,7 +399,7 @@ EMEVD.Weather = {
     None = -1,
 }
 
----@enum ArenaMatchType
+---@enum EMEVD.ArenaMatchType
 EMEVD.ArenaMatchType = {
     Duel = 0,
     TwoPlayerBrawl = 1,
@@ -410,7 +410,7 @@ EMEVD.ArenaMatchType = {
     ThreeVersusThree = 6,
 }
 
----@enum ArenaResult
+---@enum EMEVD.ArenaResult
 EMEVD.ArenaResult = {
     Win = 0,
     Draw = 1,
@@ -439,7 +439,8 @@ function EMEVD.EndPS5Activity(activityId) end
 ---@param clockMoveTimeS? number
 ---@param clockFinishDelayS? number
 function EMEVD.SetCurrentTime(hours, minutes, seconds, fadeTransition, shouldWaitForCompletion, showClock,
-                              clockStartupDelayS, clockMoveTimeS, clockFinishDelayS) end
+                              clockStartupDelayS, clockMoveTimeS, clockFinishDelayS)
+end
 
 ---@param shouldFreeze? boolean
 function EMEVD.FreezeTime(shouldFreeze) end
@@ -447,19 +448,19 @@ function EMEVD.FreezeTime(shouldFreeze) end
 -- Cutscene
 
 ---@param cutsceneId? number
----@param playbackMethod? CutscenePlayMode
+---@param playbackMethod? EMEVD.CutscenePlayMode
 function EMEVD.PlayCutsceneToAll(cutsceneId, playbackMethod) end
 
 ---@param cutsceneId? number
----@param playbackMethod? CutscenePlayMode
+---@param playbackMethod? EMEVD.CutscenePlayMode
 ---@param playerEntityId? number
 function EMEVD.PlayCutsceneToPlayer(cutsceneId, playbackMethod, playerEntityId) end
 
 ---@param cutsceneId? number
----@param playbackMethod? CutscenePlayMode
+---@param playbackMethod? EMEVD.CutscenePlayMode
 ---@param playerEntityId? number
 ---@param shouldChangeWeather? boolean
----@param weather? Weather
+---@param weather? EMEVD.Weather
 ---@param weatherLifespanSeconds? number
 ---@param shouldChangeTime? boolean
 ---@param hours? number
@@ -467,27 +468,29 @@ function EMEVD.PlayCutsceneToPlayer(cutsceneId, playbackMethod, playerEntityId) 
 ---@param seconds? number
 function EMEVD.PlayCutsceneToPlayerWithWeatherAndTime(cutsceneId, playbackMethod, playerEntityId, shouldChangeWeather,
                                                       weather, weatherLifespanSeconds, shouldChangeTime, hours, minutes,
-                                                      seconds) end
+                                                      seconds)
+end
 
 ---@param cutsceneId? number
----@param playbackMethod? CutscenePlayMode
+---@param playbackMethod? EMEVD.CutscenePlayMode
 ---@param areaEntityId? number
 ---@param mapId? number
 ---@param playerEntityId? number
 ---@param unknown14? number
 ---@param unknown18? boolean
 function EMEVD.PlayCutsceneToPlayerAndWarp(cutsceneId, playbackMethod, areaEntityId, mapId, playerEntityId, unknown14,
-                                           unknown18) end
+                                           unknown18)
+end
 
 ---@param cutsceneId? number
----@param playbackMethod? CutscenePlayMode
+---@param playbackMethod? EMEVD.CutscenePlayMode
 ---@param areaEntityId? number
 ---@param mapId? number
 ---@param playerEntityId? number
 ---@param unknown14? number
 ---@param unknown18? boolean
 ---@param shouldChangeWeather? boolean
----@param weather? Weather
+---@param weather? EMEVD.Weather
 ---@param weatherLifespanSeconds? number
 ---@param shouldChangeTime? boolean
 ---@param hours? number
@@ -496,10 +499,11 @@ function EMEVD.PlayCutsceneToPlayerAndWarp(cutsceneId, playbackMethod, areaEntit
 function EMEVD.PlayCutsceneToPlayerAndWarpWithWeatherAndTime(cutsceneId, playbackMethod, areaEntityId, mapId,
                                                              playerEntityId, unknown14, unknown18, shouldChangeWeather,
                                                              weather, weatherLifespanSeconds, shouldChangeTime, hours,
-                                                             minutes, seconds) end
+                                                             minutes, seconds)
+end
 
 ---@param cutsceneId? number
----@param playbackMethod? CutscenePlayMode
+---@param playbackMethod? EMEVD.CutscenePlayMode
 ---@param areaEntityId? number
 ---@param mapId? number
 ---@param playerEntityId? number
@@ -508,7 +512,8 @@ function EMEVD.PlayCutsceneToPlayerAndWarpWithWeatherAndTime(cutsceneId, playbac
 ---@param shouldUpdateStablePosition? boolean
 function EMEVD.PlayCutsceneToPlayerAndWarpWithStablePositionUpdate(cutsceneId, playbackMethod, areaEntityId, mapId,
                                                                    playerEntityId, unknown14, unknown18,
-                                                                   shouldUpdateStablePosition) end
+                                                                   shouldUpdateStablePosition)
+end
 
 -- Event
 
@@ -523,24 +528,25 @@ function EMEVD.AwardItemLot(itemLotId) end
 ---@param firingAngleY? number
 ---@param firingAngleZ? number
 function EMEVD.ShootBullet(bulletTeamEntityId, bulletProducerEntityId, dummypolyId, behaviorId, firingAngleX,
-                           firingAngleY, firingAngleZ) end
+                           firingAngleY, firingAngleZ)
+end
 
 ---@param eventFlagId? number
 function EMEVD.InvertEventFlag(eventFlagId) end
 
----@param disabledEnabled? DisabledEnabled
+---@param disabledEnabled? EMEVD.DisabledEnabled
 ---@param entityId? number
 ---@param slotNumber? number
 ---@param nameId? number
 function EMEVD.DisplayBossHealthBar(disabledEnabled, entityId, slotNumber, nameId) end
 
 ---@param entityId? number
----@param bannerType? TextBannerType
+---@param bannerType? EMEVD.TextBannerType
 function EMEVD.HandleBossDefeatAndDisplayBanner(entityId, bannerType) end
 
 ---@param navimeshEntityId? number
----@param navimeshType? NavimeshType
----@param typeBitOperation? BitopType
+---@param navimeshType? EMEVD.NavimeshType
+---@param typeBitOperation? EMEVD.BitopType
 function EMEVD.ModifyNavimeshConnectionBitflag(navimeshEntityId, navimeshType, typeBitOperation) end
 
 ---@param areaId? number
@@ -559,7 +565,7 @@ function EMEVD.TriggerMultiplayerEvent(multiplayerEventId) end
 
 ---@param eventFlagIdMin? number
 ---@param eventFlagIdMax? number
----@param flagState? OnOff
+---@param flagState? EMEVD.OnOff
 function EMEVD.RandomlySetEventFlagInRange(eventFlagIdMin, eventFlagIdMax, flagState) end
 
 ---@param entityId? number
@@ -567,35 +573,37 @@ function EMEVD.RandomlySetEventFlagInRange(eventFlagIdMin, eventFlagIdMax, flagS
 ---@param shouldLoop? boolean
 ---@param shouldWaitForCompletion? boolean
 ---@param ignoreWaitForTransition? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 function EMEVD.ForceAnimationPlayback(entityId, animationId, shouldLoop, shouldWaitForCompletion, ignoreWaitForTransition,
-                                      comparisonType, numberOfTargetCharacters) end
+                                      comparisonType, numberOfTargetCharacters)
+end
 
 ---@param dummy? number
 function EMEVD.IncrementGameCycle(dummy) end
 
 ---@param eventFlagIdStart? number
 ---@param eventFlagIdEnd? number
----@param flagState? OnOff
+---@param flagState? EMEVD.OnOff
 function EMEVD.BatchSetEventFlags(eventFlagIdStart, eventFlagIdEnd, flagState) end
 
 ---@param respawnAreaEntityId? number
 function EMEVD.SetPlayerRespawnPoint(respawnAreaEntityId) end
 
----@param itemType? ItemType
+---@param itemType? EMEVD.ItemType
 ---@param itemId? number
 ---@param number? number
 function EMEVD.RemoveItemFromPlayer(itemType, itemId, number) end
 
----@param signType? SummonSignType
+---@param signType? EMEVD.SummonSignType
 ---@param summonedNPCEntityId? number
 ---@param spawnAreaEntityId? number
 ---@param summonEventFlagId? number
 ---@param dismissalEventFlagId? number
 ---@param unknown? boolean
 function EMEVD.PlaceNPCSummonSign(signType, summonedNPCEntityId, spawnAreaEntityId, summonEventFlagId,
-                                  dismissalEventFlagId, unknown) end
+                                  dismissalEventFlagId, unknown)
+end
 
 ---@param achievementId? number
 function EMEVD.AwardAchievement(achievementId) end
@@ -630,17 +638,18 @@ function EMEVD.AwardItemsIncludingClients(itemLotId) end
 ---@param operand? number
 ---@param baseEventFlagIdOperand? number
 ---@param numberOfUsedEventFlagBitsOperand? number
----@param calculationType? CalculationType
+---@param calculationType? EMEVD.CalculationType
 function EMEVD.EventValueOperation(baseEventFlagId, numberOfUsedFlagBits, operand, baseEventFlagIdOperand,
-                                   numberOfUsedEventFlagBitsOperand, calculationType) end
+                                   numberOfUsedEventFlagBitsOperand, calculationType)
+end
 
----@param itemType? ItemType
+---@param itemType? EMEVD.ItemType
 ---@param itemId? number
 ---@param baseEventFlagId? number
 ---@param numberOfUsedFlagBits? number
 function EMEVD.StoreItemAmountHeldInEventValue(itemType, itemId, baseEventFlagId, numberOfUsedFlagBits) end
 
----@param itemType? ItemType
+---@param itemType? EMEVD.ItemType
 ---@param itemId? number
 ---@param baseEventFlagId? number
 ---@param numberOfUsedFlagBits? number
@@ -648,7 +657,7 @@ function EMEVD.DirectlyGivePlayerItem(itemType, itemId, baseEventFlagId, numberO
 
 ---@param aiSoundParamId? number
 ---@param entityId? number
----@param originEntityType? TargetEntityType
+---@param originEntityType? EMEVD.TargetEntityType
 function EMEVD.TriggerAISound(aiSoundParamId, entityId, originEntityType) end
 
 ---@param generatorEntityId? number
@@ -656,7 +665,7 @@ function EMEVD.InvokeEnemyGenerator(generatorEntityId) end
 
 ---@param eventFlagIdStart? number
 ---@param eventFlagIdEnd? number
----@param flagState? OnOff
+---@param flagState? EMEVD.OnOff
 function EMEVD.BatchSetNetworkConnectedEventFlags(eventFlagIdStart, eventFlagIdEnd, flagState) end
 
 ---@param level1Count? number
@@ -665,19 +674,19 @@ function EMEVD.SetOmissionModeCounts(level1Count, level2Count) end
 
 function EMEVD.ResetOmissionModeCountsToDefault() end
 
----@param targetEventFlagType? TargetEventFlagType
+---@param targetEventFlagType? EMEVD.TargetEventFlagType
 ---@param targetEventFlagId? number
----@param desiredFlagState? OnOff
+---@param desiredFlagState? EMEVD.OnOff
 function EMEVD.SetEventFlag(targetEventFlagType, targetEventFlagId, desiredFlagState) end
 
----@param weather? Weather
+---@param weather? EMEVD.Weather
 ---@param lifespanSeconds? number
 ---@param shouldSwitchImmediately? boolean
 function EMEVD.ChangeWeather(weather, lifespanSeconds, shouldSwitchImmediately) end
 
----@param targetEventFlagType? TargetEventFlagType
+---@param targetEventFlagType? EMEVD.TargetEventFlagType
 ---@param targetEventFlagId? number
----@param desiredFlagState? OnOff
+---@param desiredFlagState? EMEVD.OnOff
 function EMEVD.SetNetworkConnectedEventFlag(targetEventFlagType, targetEventFlagId, desiredFlagState) end
 
 ---@param ignoreIsMyWorldCheck? boolean
@@ -703,7 +712,7 @@ function EMEVD.IssueEndOfPseudoMultiplayerNotification(success) end
 ---@param dummypolyId? number
 function EMEVD.UseFarViewCamera(farViewId, assetEntityId, dummypolyId) end
 
----@param state? DisabledEnabled
+---@param state? EMEVD.DisabledEnabled
 ---@param aboveground? boolean
 ---@param areaId? number
 ---@param blockId? number
@@ -733,7 +742,7 @@ function EMEVD.DeleteNPCSummonSign(npcEntityId) end
 -- Character
 
 ---@param entityId? number
----@param teamType? TeamType
+---@param teamType? EMEVD.TeamType
 function EMEVD.SetCharacterTeamType(entityId, teamType) end
 
 ---@param entityId? number
@@ -792,14 +801,15 @@ function EMEVD.ClearSpEffect(entityId, SpEffectId) end
 
 ---@param entityId? number
 ---@param npcPartId? number
----@param npcPartGroupIdx? NPCPartType
+---@param npcPartGroupIdx? EMEVD.NPCPartType
 ---@param npcPartHP? number
 ---@param damageCorrection? number
 ---@param bodyDamageCompensation? number
 ---@param isInvincible? boolean
 ---@param startInStoppedState? boolean
 function EMEVD.CreateNPCPart(entityId, npcPartId, npcPartGroupIdx, npcPartHP, damageCorrection, bodyDamageCompensation,
-                             isInvincible, startInStoppedState) end
+                             isInvincible, startInStoppedState)
+end
 
 ---@param entityId? number
 ---@param npcPartId? number
@@ -815,7 +825,8 @@ function EMEVD.SetNPCPartHP(entityId, npcPartId, desiredHP, shouldAllowHPAboveMa
 ---@param unknownb? number
 ---@param unknownc? number
 function EMEVD.SetNPCPartSEAndSFX(entityId, npcPartId, defenseMaterialSEId, defenseMaterialSFXId, unknowna, unknownb,
-                                  unknownc) end
+                                  unknownc)
+end
 
 ---@param entityId? number
 ---@param npcPartId? number
@@ -824,16 +835,16 @@ function EMEVD.SetNPCPartBulletDamageMultiplier(entityId, npcPartId, bulletDamag
 
 ---@param entityId? number
 ---@param bitNumber? number
----@param switchType? OnOffChange
+---@param switchType? EMEVD.OnOffChange
 function EMEVD.ChangeCharacterDispmask(entityId, bitNumber, switchType) end
 
 ---@param characterEntityId? number
 ---@param bitNumber? number
----@param switchType? OnOffChange
+---@param switchType? EMEVD.OnOffChange
 function EMEVD.ChangeCharacterHitmask(characterEntityId, bitNumber, switchType) end
 
 ---@param entityId? number
----@param authorityLevel? AuthorityLevel
+---@param authorityLevel? EMEVD.AuthorityLevel
 function EMEVD.SetNetworkUpdateAuthority(entityId, authorityLevel) end
 
 ---@param entityId? number
@@ -850,7 +861,7 @@ function EMEVD.CreateReferredDamagePair(sourceEntityId, targetEntityId) end
 
 ---@param entityId? number
 ---@param useFixedFrequency? boolean
----@param updateFrequency? CharacterUpdateFrequency
+---@param updateFrequency? EMEVD.CharacterUpdateFrequency
 function EMEVD.SetNetworkUpdateRate(entityId, useFixedFrequency, updateFrequency) end
 
 ---@param characterEntityId? number
@@ -860,29 +871,31 @@ function EMEVD.ForceCharacterTreasure(characterEntityId) end
 function EMEVD.BetrayCharactersCurrentCovenant(dummy) end
 
 ---@param entityId? number
----@param warpEntityType? TargetEntityType
+---@param warpEntityType? EMEVD.TargetEntityType
 ---@param warpDestinationEntityId? number
 ---@param dummypolyId? number
 ---@param warpDestinationHitEntityId? number
 function EMEVD.WarpCharacterAndSetFloor(entityId, warpEntityType, warpDestinationEntityId, dummypolyId,
-                                        warpDestinationHitEntityId) end
+                                        warpDestinationHitEntityId)
+end
 
 ---@param entityId? number
----@param warpEntityType? TargetEntityType
+---@param warpEntityType? EMEVD.TargetEntityType
 ---@param warpDestinationEntityId? number
 ---@param dummypolyId? number
 function EMEVD.IssueShortWarpRequest(entityId, warpEntityType, warpDestinationEntityId, dummypolyId) end
 
 ---@param entityId? number
----@param warpEntityType? TargetEntityType
+---@param warpEntityType? EMEVD.TargetEntityType
 ---@param warpDestinationEntityId? number
 ---@param dummypolyId? number
 ---@param entityIdToCopyFloorFrom? number
 function EMEVD.WarpCharacterAndCopyFloor(entityId, warpEntityType, warpDestinationEntityId, dummypolyId,
-                                         entityIdToCopyFloorFrom) end
+                                         entityIdToCopyFloorFrom)
+end
 
 ---@param characterEntityId? number
----@param state? DisabledEnabled
+---@param state? EMEVD.DisabledEnabled
 function EMEVD.RequestCharacterAnimationReset(characterEntityId, state) end
 
 function EMEVD.BonfireLikeRecovery() end
@@ -921,14 +934,15 @@ function EMEVD.CopyPlayerCharacterData(sourceCharacterEntityId, targetCharacterE
 function EMEVD.AttachAssetToCharacter(characterEntityId, dummypolyId, assetEntityId) end
 
 ---@param entityId? number
----@param warpEntityType? TargetEntityType
+---@param warpEntityType? EMEVD.TargetEntityType
 ---@param warpDestinationEntityId? number
 ---@param dummypolyId? number
 ---@param entityIdToCopyFloorFrom? number
 ---@param useBonfireEffect? boolean
 ---@param resetCamera? boolean
 function EMEVD.WarpCharacterAndCopyFloorWithFadeOut(entityId, warpEntityType, warpDestinationEntityId, dummypolyId,
-                                                    entityIdToCopyFloorFrom, useBonfireEffect, resetCamera) end
+                                                    entityIdToCopyFloorFrom, useBonfireEffect, resetCamera)
+end
 
 ---@param characterEntityId? number
 ---@param overrideSlot? number
@@ -957,7 +971,7 @@ function EMEVD.SendCharacterDataToOnlinePlayers(poolType) end
 function EMEVD.ResetCharacterPosition(characterEntityId) end
 
 ---@param characterEntityId? number
----@param flagState? OnOff
+---@param flagState? EMEVD.OnOff
 function EMEVD.SetSpecialStandbyEndedFlag(characterEntityId, flagState) end
 
 ---@param opacity? number
@@ -995,12 +1009,13 @@ function EMEVD.ReproduceAssetDestruction(entityId, slotNumber) end
 ---@param entityId? number
 ---@param dummypolyId? number
 ---@param behaviorId? number
----@param target? DamageTargetType
+---@param target? EMEVD.DamageTargetType
 ---@param radius? number
 ---@param lifespan? number
 ---@param repetitionTimeS? number
 function EMEVD.CreateDamagingAsset(eventFlagId, entityId, dummypolyId, behaviorId, target, radius, lifespan,
-                                   repetitionTimeS) end
+                                   repetitionTimeS)
+end
 
 ---@param entityId? number
 ---@param characterEntityId? number
@@ -1027,12 +1042,13 @@ function EMEVD.AttachAssetToAsset(childAssetEntityId, parentAssetEntityId, paren
 ---@param startingDummypolyId? number
 ---@param endingDummypolyId? number
 ---@param behaviorId? number
----@param target? DamageTargetType
+---@param target? EMEVD.DamageTargetType
 ---@param radius? number
 ---@param lifespan? number
 ---@param repetitionTimeS? number
 function EMEVD.CreateBigDamagingAsset(eventFlagId, entityId, startingDummypolyId, endingDummypolyId, behaviorId, target,
-                                      radius, lifespan, repetitionTimeS) end
+                                      radius, lifespan, repetitionTimeS)
+end
 
 -- SFX
 
@@ -1043,7 +1059,7 @@ function EMEVD.DeleteMapSFX(entityId, onlyDeleteRoot) end
 ---@param entityId? number
 function EMEVD.SpawnMapSFX(entityId) end
 
----@param targetEntityType? TargetEntityType
+---@param targetEntityType? EMEVD.TargetEntityType
 ---@param entityId? number
 ---@param dummypolyId? number
 ---@param sfxId? number
@@ -1064,17 +1080,17 @@ function EMEVD.SetWindSFX(windSFXId) end
 -- Message
 
 ---@param messageId? number
----@param dialogType? PromptType
----@param numberOfOptions? NumberOfOptions
+---@param dialogType? EMEVD.PromptType
+---@param numberOfOptions? EMEVD.NumberOfOptions
 ---@param entityId? number
 ---@param displayDistance? number
 function EMEVD.DisplayGenericDialog(messageId, dialogType, numberOfOptions, entityId, displayDistance) end
 
----@param bannerType? TextBannerType
+---@param bannerType? EMEVD.TextBannerType
 function EMEVD.DisplayBanner(bannerType) end
 
 ---@param messageId? number
----@param padState? DisabledEnabled
+---@param padState? EMEVD.DisabledEnabled
 function EMEVD.DisplayStatusMessage(messageId, padState) end
 
 ---@param messageId? number
@@ -1084,8 +1100,8 @@ function EMEVD.DisplayBlinkingMessage(messageId) end
 function EMEVD.DisplayFullScreenMessage(messageId) end
 
 ---@param messageId? number
----@param dialogType? PromptType
----@param numberOfOptions? NumberOfOptions
+---@param dialogType? EMEVD.PromptType
+---@param numberOfOptions? EMEVD.NumberOfOptions
 ---@param entityId? number
 ---@param displayDistance? number
 ---@param leftResponseEventFlagId? number
@@ -1093,7 +1109,8 @@ function EMEVD.DisplayFullScreenMessage(messageId) end
 ---@param cancelResponseEventFlagId? number
 function EMEVD.DisplayGenericDialogAndSetEventFlags(messageId, dialogType, numberOfOptions, entityId, displayDistance,
                                                     leftResponseEventFlagId, rightResponseEventFlagId,
-                                                    cancelResponseEventFlagId) end
+                                                    cancelResponseEventFlagId)
+end
 
 ---@param messageId? number
 ---@param priority? number
@@ -1122,13 +1139,14 @@ function EMEVD.DisplayNetworkMessage(networkMessageId, unknown) end
 function EMEVD.ChangeCamera(normalCameraId, lockedCameraId) end
 
 ---@param vibrationId? number
----@param targetEntityType? TargetEntityType
+---@param targetEntityType? EMEVD.TargetEntityType
 ---@param entityId? number
 ---@param dummypolyId? number
 ---@param decayStartDistance? number
 ---@param decayEndDistance? number
 function EMEVD.SetCameraVibration(vibrationId, targetEntityType, entityId, dummypolyId, decayStartDistance,
-                                  decayEndDistance) end
+                                  decayEndDistance)
+end
 
 ---@param areaId? number
 ---@param blockId? number
@@ -1153,7 +1171,8 @@ function EMEVD.RegisterLadder(disableTopEventFlagId, disableBottomEventFlagId, e
 ---@param setStandardKindlingLevel? number
 ---@param enemyDeactivationDistance? number
 function EMEVD.RegisterBonfire(eventFlagId, entityId, reactionDistance, reactionAngle, setStandardKindlingLevel,
-                               enemyDeactivationDistance) end
+                               enemyDeactivationDistance)
+end
 
 ---@param entityId? number
 function EMEVD.ActivateMultiplayerDependantBuffs(entityId) end
@@ -1173,17 +1192,17 @@ function EMEVD.SendAllPhantomsHomeAndUpdateServerPvpStats(unknown) end
 -- Sound
 
 ---@param entityId? number
----@param soundType? SoundType
+---@param soundType? EMEVD.SoundType
 ---@param soundId? number
 function EMEVD.PlaySE(entityId, soundType, soundId) end
 
----@param soundType? SoundType
+---@param soundType? EMEVD.SoundType
 ---@param unknown? number
 ---@param isSuppressionActive? boolean
 function EMEVD.SuppressSE(soundType, unknown, isSuppressionActive) end
 
 ---@param bgmBossConvParamId? number
----@param state? BossBGMState
+---@param state? EMEVD.BossBGMState
 function EMEVD.SetBossBGM(bgmBossConvParamId, state) end
 
 ---@param timeS? number
@@ -1404,50 +1423,52 @@ function EMEVD.TimeOfDay(hours, minutes, seconds) end
 ---@param endingSeconds? number
 ---@return boolean
 function EMEVD.TimeOfDayInRange(startingHours, startingMinutes, startingSeconds, endingHours, endingMinutes,
-                                endingSeconds) end
+                                endingSeconds)
+end
 
 -- Condition - Event
 
----@param desiredFlagState? OnOffChange
----@param targetEventFlagType? TargetEventFlagType
+---@param desiredFlagState? EMEVD.OnOffChange
+---@param targetEventFlagType? EMEVD.TargetEventFlagType
 ---@param targetEventFlagId? number
 ---@return boolean
 function EMEVD.EventFlag(desiredFlagState, targetEventFlagType, targetEventFlagId) end
 
----@param desiredFlagState? LogicalOperationType
----@param targetEventFlagType? TargetEventFlagType
+---@param desiredFlagState? EMEVD.LogicalOperationType
+---@param targetEventFlagType? EMEVD.TargetEventFlagType
 ---@param startingTargetEventFlagId? number
 ---@param endingTargetEventFlagId? number
 ---@return boolean
 function EMEVD.BatchEventFlags(desiredFlagState, targetEventFlagType, startingTargetEventFlagId, endingTargetEventFlagId) end
 
----@param desiredState? InsideOutsideState
+---@param desiredState? EMEVD.InsideOutsideState
 ---@param targetEntityId? number
 ---@param areaEntityId? number
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.InOutsideArea(desiredState, targetEntityId, areaEntityId, numberOfTargetCharacters) end
 
----@param desiredState? InsideOutsideState
+---@param desiredState? EMEVD.InsideOutsideState
 ---@param targetEntityIdA? number
 ---@param targetEntityIdB? number
 ---@param targetDistance? number
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.EntityInOutsideRadiusOfEntity(desiredState, targetEntityIdA, targetEntityIdB, targetDistance,
-                                             numberOfTargetCharacters) end
+                                             numberOfTargetCharacters)
+end
 
----@param itemType? ItemType
+---@param itemType? EMEVD.ItemType
 ---@param itemId? number
----@param desiredPossessionState? OwnershipState
+---@param desiredPossessionState? EMEVD.OwnershipState
 ---@return boolean
 function EMEVD.PlayerHasDoesntHaveItem(itemType, itemId, desiredPossessionState) end
 
----@param desiredMultiplayerState? MultiplayerState
+---@param desiredMultiplayerState? EMEVD.MultiplayerState
 ---@return boolean
 function EMEVD.MultiplayerState(desiredMultiplayerState) end
 
----@param desiredState? InsideOutsideState
+---@param desiredState? EMEVD.InsideOutsideState
 ---@param areaEntityId? number
 ---@return boolean
 function EMEVD.AllPlayersInOutsideArea(desiredState, areaEntityId) end
@@ -1464,18 +1485,19 @@ function EMEVD.PlayerInOutMap(shouldPlayerBeInside, areaId, blockId, regionId, i
 ---@return boolean
 function EMEVD.MultiplayerEvent(multiplayerEventId) end
 
----@param targetEventFlagType? TargetEventFlagType
+---@param targetEventFlagType? EMEVD.TargetEventFlagType
 ---@param startingTargetEventFlagId? number
 ---@param endingTargetEventFlagId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param countThreshold? number
 ---@return boolean
 function EMEVD.CountEventFlags(targetEventFlagType, startingTargetEventFlagId, endingTargetEventFlagId, comparisonType,
-                               countThreshold) end
+                               countThreshold)
+end
 
 ---@param baseEventFlagId? number
 ---@param numberOfUsedFlagBits? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param thresholdValue? number
 ---@return boolean
 function EMEVD.EventValue(baseEventFlagId, numberOfUsedFlagBits, comparisonType, thresholdValue) end
@@ -1484,30 +1506,31 @@ function EMEVD.EventValue(baseEventFlagId, numberOfUsedFlagBits, comparisonType,
 ---@return boolean
 function EMEVD.DroppedItemsInArea(areaEntityId) end
 
----@param itemType? ItemType
+---@param itemType? EMEVD.ItemType
 ---@param itemId? number
 ---@return boolean
 function EMEVD.DroppedItem(itemType, itemId) end
 
----@param itemType? ItemType
+---@param itemType? EMEVD.ItemType
 ---@param itemId? number
----@param desiredPossessionState? OwnershipState
+---@param desiredPossessionState? EMEVD.OwnershipState
 ---@return boolean
 function EMEVD.PlayerHasDoesntHaveItemIncludingBbox(itemType, itemId, desiredPossessionState) end
 
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param completedGameCyclesThreshold? number
 ---@return boolean
 function EMEVD.GameCycle(comparisonType, completedGameCyclesThreshold) end
 
 ---@param leftSideBaseEventFlagId? number
 ---@param leftSideNumberOfUsedFlagBits? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param rightSideBaseEventFlagId? number
 ---@param rightSideNumberOfUsedFlagBits? number
 ---@return boolean
 function EMEVD.CompareEventValues(leftSideBaseEventFlagId, leftSideNumberOfUsedFlagBits, comparisonType,
-                                  rightSideBaseEventFlagId, rightSideNumberOfUsedFlagBits) end
+                                  rightSideBaseEventFlagId, rightSideNumberOfUsedFlagBits)
+end
 
 ---@param onlineMode? boolean
 ---@return boolean
@@ -1515,7 +1538,7 @@ function EMEVD.OnlineMode(onlineMode) end
 
 ---@param targetEntityId? number
 ---@param attackerEntityId? number
----@param damageType? DamageType
+---@param damageType? EMEVD.DamageType
 ---@return boolean
 function EMEVD.DamageType(targetEntityId, attackerEntityId, damageType) end
 
@@ -1524,7 +1547,7 @@ function EMEVD.DamageType(targetEntityId, attackerEntityId, damageType) end
 ---@return boolean
 function EMEVD.ActionButtonInArea(actionButtonParameterId, targetEntityId) end
 
----@param worldType? WorldType
+---@param worldType? EMEVD.WorldType
 ---@return boolean
 function EMEVD.PlayerIsInWorldType(worldType) end
 
@@ -1535,7 +1558,7 @@ function EMEVD.PlayerIsInWorldType(worldType) end
 ---@return boolean
 function EMEVD.MapLoaded(areaId, blockId, regionId, indexId) end
 
----@param weather? Weather
+---@param weather? EMEVD.Weather
 ---@param startDelayDuringChangeS? number
 ---@param endDelayDuringChangeS? number
 ---@return boolean
@@ -1555,7 +1578,7 @@ function EMEVD.MapHasPermissionToUpdate(hasPermission, unknown, areaId, blockId,
 ---@return boolean
 function EMEVD.FieldBattleBGMActive(npcThreatLevel, isActive) end
 
----@param armorType? ArmorType
+---@param armorType? EMEVD.ArmorType
 ---@param armorItemId? number
 ---@param unknown? number
 ---@return boolean
@@ -1571,7 +1594,7 @@ function EMEVD.CeremonyActive(isActive, ceremonyId) end
 ---@return boolean
 function EMEVD.WeatherLotActive(weatherLotParamId, isActive) end
 
----@param gender? Gender
+---@param gender? EMEVD.Gender
 ---@return boolean
 function EMEVD.PlayerGender(gender) end
 
@@ -1579,25 +1602,25 @@ function EMEVD.PlayerGender(gender) end
 ---@return boolean
 function EMEVD.ArenaMatchReadyState(ready) end
 
----@param result? ArenaResult
+---@param result? EMEVD.ArenaResult
 ---@return boolean
 function EMEVD.ArenaSoloResults(result) end
 
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetScore? number
 ---@return boolean
 function EMEVD.ArenaSoloScoreComparison(comparisonType, targetScore) end
 
----@param result? ArenaResult
+---@param result? EMEVD.ArenaResult
 ---@return boolean
 function EMEVD.ArenaTeamResults(result) end
 
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetScore? number
 ---@return boolean
 function EMEVD.ArenaTeamScoreComparison(comparisonType, targetScore) end
 
----@param matchType? ArenaMatchType
+---@param matchType? EMEVD.ArenaMatchType
 ---@param hasSpiritSummon? boolean
 ---@return boolean
 function EMEVD.ArenaMatchType(matchType, hasSpiritSummon) end
@@ -1612,23 +1635,23 @@ function EMEVD.TutorialSeen(tutorialParamId) end
 -- Condition - Character
 
 ---@param targetEntityId? number
----@param desiredLifeState? DeathState
----@param comparisonType? ComparisonType
+---@param desiredLifeState? EMEVD.DeathState
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterDeadAlive(targetEntityId, desiredLifeState, comparisonType, numberOfTargetCharacters) end
 
 ---@param targetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetHPRatio? number
----@param comparisonType2? ComparisonType
+---@param comparisonType2? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterHPRatio(targetEntityId, comparisonType, targetHPRatio, comparisonType2, numberOfTargetCharacters) end
 
 ---@param targetEntityId? number
----@param targetType? TargetType
----@param comparisonType? ComparisonType
+---@param targetType? EMEVD.TargetType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterType(targetEntityId, targetType, comparisonType, numberOfTargetCharacters) end
@@ -1636,16 +1659,17 @@ function EMEVD.CharacterType(targetEntityId, targetType, comparisonType, numberO
 ---@param aggressorEntityId? number
 ---@param targetEntityId? number
 ---@param shouldHave? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterTargetedBy(aggressorEntityId, targetEntityId, shouldHave, comparisonType,
-                                   numberOfTargetCharacters) end
+                                   numberOfTargetCharacters)
+end
 
 ---@param targetEntityId? number
 ---@param SpEffectId? number
 ---@param shouldHave? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterHasSpEffect(targetEntityId, SpEffectId, shouldHave, comparisonType, numberOfTargetCharacters) end
@@ -1653,13 +1677,13 @@ function EMEVD.CharacterHasSpEffect(targetEntityId, SpEffectId, shouldHave, comp
 ---@param targetEntityId? number
 ---@param npcPartId? number
 ---@param hpThreshold? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@return boolean
 function EMEVD.NPCPartHP(targetEntityId, npcPartId, hpThreshold, comparisonType) end
 
 ---@param targetEntityId? number
 ---@param isBackread? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterBackreadStatus(targetEntityId, isBackread, comparisonType, numberOfTargetCharacters) end
@@ -1667,20 +1691,21 @@ function EMEVD.CharacterBackreadStatus(targetEntityId, isBackread, comparisonTyp
 ---@param targetEntityId? number
 ---@param targetEventMessageId? number
 ---@param shouldHave? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterHasEventMessage(targetEntityId, targetEventMessageId, shouldHave, comparisonType,
-                                        numberOfTargetCharacters) end
+                                        numberOfTargetCharacters)
+end
 
 ---@param targetEntityId? number
----@param aiState? AIStateType
----@param comparisonType? ComparisonType
+---@param aiState? EMEVD.AIStateType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterAIState(targetEntityId, aiState, comparisonType, numberOfTargetCharacters) end
 
----@param classType? ClassType
+---@param classType? EMEVD.ClassType
 ---@return boolean
 function EMEVD.PlayersClass(classType) end
 
@@ -1688,30 +1713,30 @@ function EMEVD.PlayersClass(classType) end
 ---@return boolean
 function EMEVD.PlayersCovenant(covenantIndex) end
 
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetSoulLevel? number
 ---@return boolean
 function EMEVD.PlayersSoulLevel(comparisonType, targetSoulLevel) end
 
 ---@param targetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetHP? number
----@param comparisonType2? ComparisonType
+---@param comparisonType2? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterHPValue(targetEntityId, comparisonType, targetHP, comparisonType2, numberOfTargetCharacters) end
 
 ---@param targetEntityId? number
----@param desiredLifeState? DeathState
----@param comparisonType? ComparisonType
+---@param desiredLifeState? EMEVD.DeathState
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetRatio? number
 ---@return boolean
 function EMEVD.CharacterRatioDeadAlive(targetEntityId, desiredLifeState, comparisonType, targetRatio) end
 
 ---@param targetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetAmount? number
----@param comparisonType2? ComparisonType
+---@param comparisonType2? EMEVD.ComparisonType
 ---@param targetRatio? number
 ---@return boolean
 function EMEVD.CharacterRatioHPRatio(targetEntityId, comparisonType, targetAmount, comparisonType2, targetRatio) end
@@ -1719,34 +1744,34 @@ function EMEVD.CharacterRatioHPRatio(targetEntityId, comparisonType, targetAmoun
 ---@param targetEntityId? number
 ---@param SpEffectId? number
 ---@param shouldHave? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetRatio? number
 ---@return boolean
 function EMEVD.CharacterRatioHasSpEffect(targetEntityId, SpEffectId, shouldHave, comparisonType, targetRatio) end
 
 ---@param targetEntityId? number
----@param aiState? AIStateType
----@param comparisonType? ComparisonType
+---@param aiState? EMEVD.AIStateType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetRatio? number
 ---@return boolean
 function EMEVD.CharacterRatioAIState(targetEntityId, aiState, comparisonType, targetRatio) end
 
 ---@param minNPCThreatLevel? number
 ---@param maxNPCThreatLevel? number
----@param aiStateType? AIStateType
+---@param aiStateType? EMEVD.AIStateType
 ---@return boolean
 function EMEVD.PlayerTargeted(minNPCThreatLevel, maxNPCThreatLevel, aiStateType) end
 
 ---@param targetEntityId? number
 ---@param npcPartId? number
 ---@param attackerEntityId? number
----@param damageType? DamageType
+---@param damageType? EMEVD.DamageType
 ---@return boolean
 function EMEVD.NPCPartAttributeDamage(targetEntityId, npcPartId, attackerEntityId, damageType) end
 
 ---@param targetEntityId? number
 ---@param invadeTypeUnknown? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterInvadeType(targetEntityId, invadeTypeUnknown, comparisonType, numberOfTargetCharacters) end
@@ -1759,21 +1784,21 @@ function EMEVD.CharacterRidingMount(targetEntityId, isMounted) end
 ---@param targetEntityId? number
 ---@param stateInfo? number
 ---@param shouldHave? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetCharacters? number
 ---@return boolean
 function EMEVD.CharacterHasStateInfo(targetEntityId, stateInfo, shouldHave, comparisonType, numberOfTargetCharacters) end
 
 ---@param targetEntityId? number
----@param desiredFlagState? OnOffChange
+---@param desiredFlagState? EMEVD.OnOffChange
 ---@return boolean
 function EMEVD.SpecialStandbyEndedFlag(targetEntityId, desiredFlagState) end
 
 -- Condition - Asset
 
----@param damageState? DestructionState
+---@param damageState? EMEVD.DestructionState
 ---@param targetAssetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetAssets? number
 ---@return boolean
 function EMEVD.AssetDestroyed(damageState, targetAssetEntityId, comparisonType, numberOfTargetAssets) end
@@ -1788,38 +1813,38 @@ function EMEVD.AssetHitBy(targetEntityId, attackerEntityId) end
 function EMEVD.ObjActEventFlag(objActEventFlag) end
 
 ---@param targetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param hpThreshold? number
----@param comparisonType2? ComparisonType
+---@param comparisonType2? EMEVD.ComparisonType
 ---@param numberOfTargetAssets? number
 ---@return boolean
 function EMEVD.AssetHP(targetEntityId, comparisonType, hpThreshold, comparisonType2, numberOfTargetAssets) end
 
----@param damageState? DestructionState
+---@param damageState? EMEVD.DestructionState
 ---@param targetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetRatio? number
 ---@return boolean
 function EMEVD.AssetRatioDestroyed(damageState, targetEntityId, comparisonType, targetRatio) end
 
 ---@param targetEntityId? number
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param burnStateUnknown? number
----@param comparisonType2? ComparisonType
+---@param comparisonType2? EMEVD.ComparisonType
 ---@param numberOfTargetAssets? number
 ---@return boolean
 function EMEVD.AssetBurnState(targetEntityId, comparisonType, burnStateUnknown, comparisonType2, numberOfTargetAssets) end
 
 ---@param targetEntityId? number
 ---@param isBackread? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param numberOfTargetAssets? number
 ---@return boolean
 function EMEVD.AssetBackread(targetEntityId, isBackread, comparisonType, numberOfTargetAssets) end
 
 ---@param targetEntityId? number
 ---@param isBackread? boolean
----@param comparisonType? ComparisonType
+---@param comparisonType? EMEVD.ComparisonType
 ---@param targetRatio? number
 ---@return boolean
 function EMEVD.AssetRatioBackread(targetEntityId, isBackread, comparisonType, targetRatio) end
