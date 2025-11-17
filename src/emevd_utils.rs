@@ -1,4 +1,4 @@
-use fromsoftware_shared::get_instance;
+use fromsoftware_shared::FromStatic;
 
 use crate::cs::{CSEmkEventIns, CSEmkSystem, EmkEventId, EmkInstruction};
 
@@ -57,7 +57,7 @@ pub unsafe fn execute_emevd_instruction(
     instruction: EmkInstruction,
     args: *const u8,
 ) -> Option<bool> {
-    let cs_emk_system = unsafe { get_instance::<CSEmkSystem>() }?;
+    let cs_emk_system = unsafe { CSEmkSystem::instance() }.ok()?;
 
     // Construct a new event for this instruction, which is immediately destroyed afterwards
     let mut event = CSEmkEventIns::new(EmkEventId::new(0, 0), None, None);

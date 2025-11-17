@@ -15,10 +15,9 @@ codegen-units = 1
 
 [dependencies]
 anyhow = "1.0.99"
-eldenring = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "5817d1a3" }
-eldenring-util = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "5817d1a3" }
+eldenring = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "f21c34a5" }
 from-singleton = "2.0.1"
-fromsoftware-shared = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "5817d1a3" }
+fromsoftware-shared = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "f21c34a5" }
 me3-mod-protocol = { git = "https://github.com/garyttierney/me3.git", tag = "v0.9.0" }
 microseh = "1.1.2"
 mlua = { version = "0.11.3", features = [
@@ -37,7 +36,3 @@ windows = { version = "0.54.0", features = [
   "Win32_System_SystemServices",
   "Win32_System_Threading",
 ] }
-
-# https://github.com/CasualX/pelite/issues/287
-[patch.crates-io]
-pelite = { git = "https://github.com/CasualX/pelite.git" }

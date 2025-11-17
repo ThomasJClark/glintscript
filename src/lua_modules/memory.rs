@@ -1,9 +1,8 @@
 use std::num::NonZeroUsize;
 
-use fromsoftware_shared::Program;
 use microseh::try_seh;
 use mlua::prelude::*;
-use pelite::pe64::PeObject;
+use pelite::image::image_base;
 
 use crate::lua_modules::glintscript_error::GlintScriptError;
 
@@ -81,7 +80,7 @@ where
 pub(crate) fn register(lua: &Lua) -> LuaResult<()> {
     let memory = lua.create_table()?;
 
-    memory.set("Base", Program::current().image_base())?;
+    memory.set("Base", image_base() as *const _ as usize)?;
 
     let singletons = lua.create_table()?;
     for (name, addr) in from_singleton::map() {

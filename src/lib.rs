@@ -5,7 +5,7 @@ mod me3_profile;
 mod script_context;
 
 use anyhow::{Context, Result};
-use eldenring_util::system::wait_for_system_init;
+use eldenring::util::system::wait_for_system_init;
 use fromsoftware_shared::Program;
 use std::{
     sync::{Arc, LazyLock, Mutex},

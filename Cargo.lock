@@ -156,7 +156,7 @@ checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 [[package]]
 name = "eldenring"
 version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=f21c34a5#f21c34a5bd3b3899a6d239994e3440b1a8ea3e3d"
 dependencies = [
  "bitfield",
  "cxx-stl",
@@ -169,20 +169,6 @@ dependencies = [
  "regex",
  "serde",
  "serde_derive",
- "thiserror 1.0.69",
- "tracing",
- "vtable-rs",
- "windows",
-]
-
-[[package]]
-name = "eldenring-util"
-version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
-dependencies = [
- "eldenring",
- "fromsoftware-shared",
- "pelite",
  "steamworks",
  "steamworks-sys",
  "thiserror 1.0.69",
@@ -249,21 +235,23 @@ dependencies = [
 [[package]]
 name = "fromsoftware-shared"
 version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=f21c34a5#f21c34a5bd3b3899a6d239994e3440b1a8ea3e3d"
 dependencies = [
  "from-singleton",
  "fromsoftware-shared-macros",
  "nalgebra",
  "nalgebra-glm",
  "pelite",
+ "thiserror 1.0.69",
  "undname",
+ "vtable-rs",
  "windows",
 ]
 
 [[package]]
 name = "fromsoftware-shared-macros"
 version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=5817d1a3#5817d1a3b811880543cf8d8a1dcbbfda73d9737b"
+source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=f21c34a5#f21c34a5bd3b3899a6d239994e3440b1a8ea3e3d"
 dependencies = [
  "quote",
  "syn",
@@ -296,7 +284,6 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "eldenring",
- "eldenring-util",
  "from-singleton",
  "fromsoftware-shared",
  "me3-mod-protocol",
@@ -709,7 +696,8 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 [[package]]
 name = "pelite"
 version = "0.10.0"
-source = "git+https://github.com/CasualX/pelite.git#e9d2dfaadaa5d225d220e703f757930f70c7b8a2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "88dccf4bd32294364aeb7bd55d749604450e9db54605887551f21baea7617685"
 dependencies = [
  "dataview",
  "libc",
@@ -721,7 +709,8 @@ dependencies = [
 [[package]]
 name = "pelite-macros"
 version = "0.1.1"
-source = "git+https://github.com/CasualX/pelite.git#e9d2dfaadaa5d225d220e703f757930f70c7b8a2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7a7cf3f8ecebb0f4895f4892a8be0a0dc81b498f9d56735cb769dc31bf00815b"
 
 [[package]]
 name = "pin-project-lite"

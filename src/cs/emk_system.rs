@@ -6,7 +6,7 @@ use eldenring::{
 use fromsoftware_shared::{OwnedPtr, Program, singleton};
 use pelite::pe64::Pe;
 use std::{
-    mem::{self, MaybeUninit, transmute},
+    mem::{MaybeUninit, transmute},
     ptr::{NonNull, null},
 };
 
@@ -124,7 +124,7 @@ impl Drop for CSEmkEventIns {
      */
     fn drop(&mut self) {
         let dtor: CSEmkEventInsDtor =
-            unsafe { mem::transmute(Program::current().rva_to_va(0x5828d0).unwrap()) };
+            unsafe { transmute(Program::current().rva_to_va(0x5828d0).unwrap()) };
 
         dtor(self);
     }
@@ -154,7 +154,7 @@ pub struct EmkInstructionBanks {
 impl EmkInstructionBanks {
     pub fn execute(&mut self, time: f32, event: &CSEmkEventIns) {
         let execute: EmkInstructionBanksExecute =
-            unsafe { mem::transmute(Program::current().rva_to_va(0x567e00).unwrap()) };
+            unsafe { transmute(Program::current().rva_to_va(0x567e00).unwrap()) };
 
         execute(self, time, event);
     }

@@ -2,8 +2,7 @@ use eldenring::{
     cs::{CSTaskGroupIndex, CSTaskImp},
     fd4::FD4TaskData,
 };
-use eldenring_util::task::CSTaskImpExt;
-use fromsoftware_shared::get_instance;
+use fromsoftware_shared::{FromStatic, SharedTaskImpExt};
 use mlua::{AppDataRefMut, chunk, prelude::*};
 
 use crate::lua_modules::glintscript_error::GlintScriptError;
@@ -149,7 +148,7 @@ pub fn register(lua: &Lua) -> LuaResult<()> {
     globals.set("RestartEvent", restart_event)?;
     globals.set("WaitFor", wait_for)?;
 
-    let cs_task = unsafe { get_instance::<CSTaskImp>() }.unwrap();
+    let cs_task = unsafe { CSTaskImp::instance() }.unwrap();
     cs_task.run_recurring(
         {
             let weak_lua = lua.weak();
