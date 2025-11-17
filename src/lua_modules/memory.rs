@@ -51,7 +51,7 @@ fn get<T>(_: &Lua, (base, pointer_chain): (usize, Option<Vec<usize>>)) -> LuaRes
 where
     T: Copy,
 {
-    let pointer_chain = pointer_chain.as_ref().map(|c| c.as_slice());
+    let pointer_chain = pointer_chain.as_deref();
 
     try_seh(|| unsafe {
         get_pointer_chain(base, pointer_chain).map(|pointer| *(pointer.get() as *const T))
@@ -63,7 +63,7 @@ fn set<T>(_: &Lua, (base, pointer_chain, value): (usize, Option<Vec<usize>>, T))
 where
     T: Copy,
 {
-    let pointer_chain = pointer_chain.as_ref().map(|c| c.as_slice());
+    let pointer_chain = pointer_chain.as_deref();
 
     try_seh(|| unsafe {
         get_pointer_chain(base, pointer_chain)

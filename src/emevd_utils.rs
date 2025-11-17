@@ -120,7 +120,7 @@ macro_rules! lua_emevd_commands {
                             $($arg_name: $arg_name.unwrap_or($arg_default),)*
                         };
                         unsafe {
-                            let args: *const u8 = std::mem::transmute(&args);
+                            let args: *const u8 = &args as *const _ as *const u8;
                             $crate::emevd_utils::execute_emevd_instruction(
                                 instruction,
                                 args
@@ -164,7 +164,7 @@ macro_rules! lua_emevd_enable_disable_commands {
                             disabled_enabled: $crate::emevd_utils::DisabledEnabled::Enabled,
                         };
                         unsafe {
-                            let args: *const u8 = std::mem::transmute(&args);
+                            let args: *const u8 = &args as *const _ as *const u8;
                             $crate::emevd_utils::execute_emevd_instruction(
                                 instruction,
                                 args
@@ -184,7 +184,7 @@ macro_rules! lua_emevd_enable_disable_commands {
                             disabled_enabled: $crate::emevd_utils::DisabledEnabled::Disabled,
                         };
                         unsafe {
-                            let args: *const u8 = std::mem::transmute(&args);
+                            let args: *const u8 = &args as *const _ as *const u8;
                             $crate::emevd_utils::execute_emevd_instruction(
                                 instruction,
                                 args
@@ -229,7 +229,7 @@ macro_rules! lua_emevd_conditions {
                             $($arg_name: $arg_name.unwrap_or($arg_default),)*
                         };
                         unsafe {
-                            let args: *const u8 = std::mem::transmute(&args);
+                            let args: *const u8 = &args as *const _ as *const u8;
                             Ok($crate::emevd_utils::execute_emevd_instruction(
                                 instruction,
                                 args

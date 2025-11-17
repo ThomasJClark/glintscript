@@ -46,7 +46,7 @@ impl ScriptContext {
     /**
      * Add the modding APIs to the global environment table
      */
-    pub fn register_apis(self: &Self) -> LuaResult<()> {
+    pub fn register_apis(&self) -> LuaResult<()> {
         memory::register(&self.lua)?;
         emevd::register(&self.lua)?;
         tasks::register(&self.lua)
@@ -61,10 +61,10 @@ impl ScriptContext {
         if let Ok(entries) = fs::read_dir(dir_path) {
             for entry in entries {
                 let entry = entry?;
-                if is_entrypoint(&entry.path()) {
-                    if let Err(e) = self.load_entrypoint(&entry.path()) {
-                        println!("{}", e);
-                    }
+                if is_entrypoint(&entry.path())
+                    && let Err(e) = self.load_entrypoint(&entry.path())
+                {
+                    println!("{}", e);
                 }
             }
         }
@@ -83,10 +83,11 @@ impl ScriptContext {
         let Ok(events) = events else { return };
 
         for event in events {
-            if event.kind == DebouncedEventKind::Any && is_entrypoint(&event.path) {
-                if let Err(e) = self.load_entrypoint(&event.path) {
-                    println!("{}", e);
-                }
+            if event.kind == DebouncedEventKind::Any
+                && is_entrypoint(&event.path)
+                && let Err(e) = self.load_entrypoint(&event.path)
+            {
+                println!("{}", e);
             }
         }
     }

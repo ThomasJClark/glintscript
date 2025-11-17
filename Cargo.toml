@@ -1,5 +1,3 @@
-cargo-features = ["profile-rustflags"]
-
 [package]
 name = "glintscript"
 version = "0.1.0"
@@ -14,10 +12,6 @@ panic = "abort"
 strip = true
 lto = true
 codegen-units = 1
-rustflags = [
-  "--remap-path-prefix=C:\\Users\\$(whoami)\\=",
-  "--remap-path-prefix=$HOME/=",
-]
 
 [dependencies]
 anyhow = "1.0.99"

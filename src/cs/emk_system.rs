@@ -27,7 +27,7 @@ impl EmkEventId {
         Self {
             id,
             slot,
-            compound_key: if slot < 0 { id } else { id + slot as i32 },
+            compound_key: if slot < 0 { id } else { id + slot },
         }
     }
 }

@@ -15,7 +15,7 @@ use windows::Win32::{Foundation::HANDLE, System::SystemServices::DLL_PROCESS_ATT
 
 use crate::script_context::ScriptContext;
 
-static SCRIPT_CONTEXT: LazyLock<Arc<Mutex<ScriptContext>>> = LazyLock::new(|| ScriptContext::new());
+static SCRIPT_CONTEXT: LazyLock<Arc<Mutex<ScriptContext>>> = LazyLock::new(ScriptContext::new);
 
 fn start() -> Result<()> {
     let mut script_context = SCRIPT_CONTEXT.lock().unwrap();
@@ -44,5 +44,5 @@ pub extern "C" fn DllMain(_: HANDLE, reason: u32) -> bool {
         });
     }
 
-    return true;
+    true
 }
