@@ -18,7 +18,10 @@ fn memory_error(
             if read { "read" } else { "write" },
             seh_exception.address() as usize,
             base,
-            pointer_chain,
+            pointer_chain
+                .iter()
+                .map(|offset| format!("{:#x}", offset))
+                .collect::<Vec<_>>(),
             seh_exception.code(),
         )
     } else {
@@ -31,16 +34,23 @@ fn memory_error(
     })
 }
 
-/**
- * Follow a chain of pointer offsets from the given base, returning the value at the end of the
- * chain or `None` if any pointer in the chain is null.
- */
+// Follow a chain of pointer offsets from the given base, returning the value at the end of the
+// chain or `None` if any pointer in the chain is null.
+//
+// # Safety
+//
+// The chain of pointers must be either valid to access in this context, or null.
+//
+// This guarantee is mostly the responsibility of Lua code external to this crate. As an extra
+// safety measure to prevent most crashes due to defective Lua code, hardware exceptions raised in
+// this function are caught and converted into Lua errors. As a result, nothing in this function
+// can be assumed to be dropped.
 unsafe fn get_pointer_chain(base: usize, pointer_chain: Option<&[usize]>) -> Option<NonZeroUsize> {
     let mut pointer = NonZeroUsize::new(base)?;
 
     for offset in pointer_chain.unwrap_or(&[]) {
-        pointer =
-            NonZeroUsize::new(*(unsafe { (pointer.get() as *const usize).as_ref() }?) + offset)?;
+        let next_base = pointer.get() as *const usize;
+        pointer = NonZeroUsize::new(unsafe { *next_base })?.checked_add(*offset)?;
     }
 
     Some(pointer)
