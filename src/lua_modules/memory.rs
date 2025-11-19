@@ -85,7 +85,7 @@ where
 }
 
 /**
- * The `glint.memory` module, used for low-level access to the game's memory
+ * The `Memory` module, used for low-level access to the game's memory
  */
 pub(crate) fn register(lua: &Lua) -> LuaResult<()> {
     let memory = lua.create_table()?;

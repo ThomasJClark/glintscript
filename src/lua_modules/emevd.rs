@@ -1589,7 +1589,7 @@ lua_emevd_conditions! {
 }
 
 /**
- * The `glint.emevd` module. Allows calling EMEVD operations from Lua.
+ * The `EMEVD` module. Allows calling EMEVD operations from Lua.
  *
  * Instructions and enums are based on the EMEDF documentation reverse engineered for DarkScript3
  * by AinTunez and thefifthmatt:
