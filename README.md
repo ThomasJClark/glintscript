@@ -1,15 +1,15 @@
 > [!WARNING]  
 > Under construction. If you're here to make mods, move along.
 
-# Glintscript 💎
+# GlintScript 💎
 
-Glintscript is a WIP experimental Lua scripting platform for modding ELDEN RING. It aims to be the environment for custom runtime scripting that's missing from the FromSoftware engine. It's mainly intended to replace the [HKS script extender](https://github.com/ElaDiDu/Scripts-Data-Exposer-FS), and may also be an easier alternative to writing custom DLLs or cheat tables, or a more powerful alternative to the built-in EMEVD event scripting system.
+GlintScript is a WIP experimental Lua scripting environment for ELDEN RING mods. It's mainly intended to replace the [HKS script extender](https://github.com/ElaDiDu/Scripts-Data-Exposer-FS), and may also be an easier alternative to writing custom DLLs or cheat tables, or a more powerful alternative to the built-in EMEVD event scripting system.
 
 ## Usage
 
-1. Add `glintscript-er.dll` as a DLL using me3
+1. Add `glintscript.dll` as a DLL using me3
 2. Add a mod folder (e.g. `mod`) as a package using me3
-3. Create Glintscript files ending in `.glint.lua` in the `script\glint\` subdirectory of your mod folder
+3. Create GlintScript files ending in `.glint.lua` in the `script\glint\` subdirectory of your mod folder
 
 You can also have other `.lua` files for shared helper functions and constants, but only files named with a `.glint.lua` will be executed automatically.
 
