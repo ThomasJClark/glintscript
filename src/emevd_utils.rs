@@ -57,6 +57,16 @@ pub unsafe fn execute_emevd_instruction(
     instruction: EmkInstruction,
     args: *const u8,
 ) -> Option<bool> {
+    // Make sure the world is loaded to avoid panic in EMEVD instructions
+    if unsafe {
+        from_singleton::map()
+            .get("CSWorldGeomMan")?
+            .as_ref()
+            .is_null()
+    } {
+        return None;
+    }
+
     let cs_emk_system = unsafe { CSEmkSystem::instance() }.ok()?;
 
     // Construct a new event for this instruction, which is immediately destroyed afterwards

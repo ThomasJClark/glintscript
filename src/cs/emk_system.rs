@@ -11,7 +11,7 @@ use std::{
 };
 
 type CSEmkEventInsCtor =
-    extern "C" fn(*mut CSEmkEventIns, &EmkEventId, &[usize; 2], *const u8, u32, BlockId, BlockId);
+    extern "C" fn(*mut CSEmkEventIns, &EmkEventId, &[usize; 2], *const u8, u32, i32, i32);
 type CSEmkEventInsDtor = extern "C" fn(*mut CSEmkEventIns);
 type EmkInstructionBanksExecute = extern "C" fn(*mut EmkInstructionBanks, f32, &CSEmkEventIns);
 
@@ -109,8 +109,8 @@ impl CSEmkEventIns {
             &unk,
             args_data.map_or(null(), |data| data.as_ptr()),
             args_data.map_or(0, |data| data.len() as u32),
-            map_id.unwrap_or(BlockId::none()),
-            map_id.unwrap_or(BlockId::none()),
+            map_id.unwrap_or(BlockId::none()).0,
+            map_id.unwrap_or(BlockId::none()).0,
         );
 
         unsafe { new.assume_init() }

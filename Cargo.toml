@@ -15,9 +15,9 @@ codegen-units = 1
 
 [dependencies]
 anyhow = "1.0.99"
-eldenring = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "f21c34a5" }
+eldenring = { git = "https://github.com/ThomasJClark/fromsoftware-rs.git", rev = "95609b5" }
 from-singleton = "2.0.1"
-fromsoftware-shared = { git = "https://github.com/vswarte/fromsoftware-rs.git", rev = "f21c34a5" }
+fromsoftware-shared = { git = "https://github.com/ThomasJClark/fromsoftware-rs.git", rev = "95609b5" }
 me3-mod-protocol = { git = "https://github.com/garyttierney/me3.git", tag = "v0.9.0" }
 microseh = "1.1.2"
 mlua = { version = "0.11.3", features = [

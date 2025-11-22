@@ -93,6 +93,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3995eaeebcdf32f91f980d360f78732ddc061097ab4e39991ae7a6ace9194677"
 
 [[package]]
+name = "byteorder"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
+
+[[package]]
 name = "cc"
 version = "1.2.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -156,13 +162,13 @@ checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 [[package]]
 name = "eldenring"
 version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=f21c34a5#f21c34a5bd3b3899a6d239994e3440b1a8ea3e3d"
+source = "git+https://github.com/ThomasJClark/fromsoftware-rs.git?rev=95609b5#95609b55412c8113c499fc04a872d9fbc487cd04"
 dependencies = [
  "bitfield",
  "cxx-stl",
  "encoding_rs",
- "from-singleton",
  "fromsoftware-shared",
+ "glam",
  "nalgebra",
  "nalgebra-glm",
  "pelite",
@@ -233,12 +239,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "from-singleton"
+version = "3.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d5292d2f2d406b551902fefa2d7879899306ca37e2866f6bfe596173a3ea17c"
+dependencies = [
+ "fxhash",
+ "memchr",
+ "pelite",
+ "smallvec",
+ "windows-sys 0.60.2",
+]
+
+[[package]]
 name = "fromsoftware-shared"
 version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=f21c34a5#f21c34a5bd3b3899a6d239994e3440b1a8ea3e3d"
+source = "git+https://github.com/ThomasJClark/fromsoftware-rs.git?rev=95609b5#95609b55412c8113c499fc04a872d9fbc487cd04"
 dependencies = [
- "from-singleton",
+ "from-singleton 3.0.1",
  "fromsoftware-shared-macros",
+ "glam",
  "nalgebra",
  "nalgebra-glm",
  "pelite",
@@ -251,7 +271,7 @@ dependencies = [
 [[package]]
 name = "fromsoftware-shared-macros"
 version = "0.11.0"
-source = "git+https://github.com/vswarte/fromsoftware-rs.git?rev=f21c34a5#f21c34a5bd3b3899a6d239994e3440b1a8ea3e3d"
+source = "git+https://github.com/ThomasJClark/fromsoftware-rs.git?rev=95609b5#95609b55412c8113c499fc04a872d9fbc487cd04"
 dependencies = [
  "quote",
  "syn",
@@ -267,6 +287,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "fxhash"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
+dependencies = [
+ "byteorder",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -279,12 +308,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "glam"
+version = "0.30.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bd47b05dddf0005d850e5644cae7f2b14ac3df487979dbfff3b56f20b1a6ae46"
+
+[[package]]
 name = "glintscript"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "eldenring",
- "from-singleton",
+ "from-singleton 2.0.1",
  "fromsoftware-shared",
  "me3-mod-protocol",
  "microseh",

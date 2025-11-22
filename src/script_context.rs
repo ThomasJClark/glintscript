@@ -8,7 +8,7 @@ use std::{
     time::Duration,
 };
 
-use crate::lua_modules::{emevd, memory, tasks};
+use crate::lua_modules::{emevd, esd, memory, tasks};
 
 pub fn is_entrypoint(path: &Path) -> bool {
     path.to_str().unwrap().ends_with(".glint.lua")
@@ -49,6 +49,7 @@ impl ScriptContext {
     pub fn register_apis(&self) -> LuaResult<()> {
         memory::register(&self.lua)?;
         emevd::register(&self.lua)?;
+        esd::register(&self.lua)?;
         tasks::register(&self.lua)
     }
 
